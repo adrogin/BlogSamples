@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "Source"
+		},
+		{
+			"path": "Tests"
+		}
+	],
+	"settings": {
+		"al.enableCodeAnalysis": true,
+		"al.codeAnalyzers": [
+			"${CodeCop}",
+			"${UICop}",
+			"${PerTenantExtensionCop}"
+		],
+		"CRS.FileNamePattern": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+		"CRS.FileNamePatternExtensions": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+		"CRS.FileNamePatternPageCustomizations": "<ObjectNameShort>.<ObjectTypeShortPascalCase>.al",
+		"CRS.OnSaveAlFileAction": "Rename",
+		"CRS.ObjectNameSuffix": " DT",
+		"al.codeAnalyzers": [
+			"${CodeCop}",
+			"${UICop}"
+		]
+	}
+}
