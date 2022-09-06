@@ -9,16 +9,19 @@ codeunit 90151 "Dictionary Mgt. DT"
     var
         TranslatorConnector: Interface "Translator Connector DT";
         TranslatedText: Dictionary of [Text, Text];
+        IncompleteInputErr: Label 'Text to translate, source language, and at least one destination language must be specified.';
+        SameLangAsSourceAndDestErr: Label 'Same language cannot be selected as the source and destination language at the same time';
     begin
         if (TextToTranslate = '') or (FromLanguage = '') or (ToLanguage.Count() = 0) then
-            exit(false);
+            Error(IncompleteInputErr);
+
+        if ToLanguage.Contains(FromLanguage) then
+            Error(SameLangAsSourceAndDestErr);
 
         InitializeInterface(TranslatorConnector);
         TranslatedText := TranslatorConnector.Translate(TextToTranslate, FromLanguage, ToLanguage);
 
         SaveTranslatedEntries(FromLanguage, ToLanguage, TextToTranslate, TranslatedText);
-
-        exit(true);
     end;
 
     local procedure InitializeInterface(var TranslatorConnector: Interface "Translator Connector DT")
@@ -49,5 +52,15 @@ codeunit 90151 "Dictionary Mgt. DT"
         DictionaryEntry."Source Text" := CopyStr(SourceText, 1, MaxStrLen(DictionaryEntry."Source Text"));
         DictionaryEntry."Dest. Text" := CopyStr(TranslatedText, 1, MaxStrLen(DictionaryEntry."Dest. Text"));
         DictionaryEntry.Insert(true);
+    end;
+
+    procedure LanguageRecSetToText(var DictLanguage: Record "Dict. Language DT") LangText: Text
+    begin
+        if DictLanguage.FindSet() then
+            repeat
+                LangText := LangText + DictLanguage.Code + ', ';
+            until DictLanguage.Next() = 0;
+
+        LangText := LangText.TrimEnd(', ');
     end;
 }

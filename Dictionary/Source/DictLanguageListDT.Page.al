@@ -4,6 +4,7 @@ page 90151 "Dict. Language List DT"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Dict. Language DT";
+    Caption = 'Dictionary Language List';
 
     layout
     {
