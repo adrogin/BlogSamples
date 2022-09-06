@@ -4,6 +4,8 @@ page 90150 "Dictionary View DT"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Dictionary Entry DT";
+    Caption = 'Dictionary';
+    SaveValues = true;
 
     layout
     {
@@ -17,7 +19,7 @@ page 90150 "Dictionary View DT"
 
                 trigger OnLookup(var Text: Text): Boolean
                 begin
-                    exit(LookupLanguage(Text));
+                    exit(LookupLanguage(Text, false));
                 end;
 
                 trigger OnValidate()
@@ -26,7 +28,7 @@ page 90150 "Dictionary View DT"
                     CurrPage.Update(false);
                 end;
             }
-            field(DestLanguageControl; DestLanguageFilter)
+            field(DestLanguageControl; DestLanguageView)
             {
                 ApplicationArea = All;
                 Caption = 'Destination Language';
@@ -34,12 +36,12 @@ page 90150 "Dictionary View DT"
 
                 trigger OnLookup(var Text: Text): Boolean
                 begin
-                    exit(LookupLanguage(Text));
+                    exit(LookupLanguage(Text, true));
                 end;
 
                 trigger OnValidate()
                 begin
-                    Rec.SetFilter("Dest. Language", DestLanguageFilter);
+                    Rec.SetFilter("Dest. Language", DestLanguageView.Replace(' ', '').Replace(',', '|'));
                     CurrPage.Update(false);
                 end;
             }
@@ -48,14 +50,39 @@ page 90150 "Dictionary View DT"
                 ApplicationArea = All;
                 Caption = 'Text to Translate';
                 ToolTip = 'Type a word or a phrase to find it in the dictionary or to send it to the translation service.';
+
+                trigger OnValidate()
+                var
+                    SrcFilter: Text;
+                begin
+                    SrcFilter := SourceText.Trim();
+                    if SrcFilter = '' then
+                        Rec.SetRange("Source Text")
+                    else
+                        Rec.SetFilter("Source Text", '@*' + SourceText + '*');
+
+                    CurrPage.Update(false);
+                end;
             }
 
             repeater(Translations)
             {
+                field(SourceLang; Rec."Source Language")
+                {
+                    ApplicationArea = All;
+                    Visible = false;
+                    ToolTip = 'Language in which the text is entered. It is used as the source language for translation.';
+                }
                 field(SourceTxtViewControl; Rec."Source Text")
                 {
                     ApplicationArea = All;
                     ToolTip = 'Text in the selected source language.';
+                }
+                field(DestLang; Rec."Dest. Language")
+                {
+                    ApplicationArea = All;
+                    Visible = false;
+                    ToolTip = 'Language to which the text is translated';
                 }
                 field(DestText; Rec."Dest. Text")
                 {
@@ -83,30 +110,50 @@ page 90150 "Dictionary View DT"
                 var
                     DictionaryMgt: Codeunit "Dictionary Mgt. DT";
                 begin
-                    DictionaryMgt.Translate(SourceText, SourceLanguageFilter, FilterText2List(DestLanguageFilter));
+                    DictionaryMgt.Translate(SourceText, SourceLanguageFilter, FilterText2List(DestLanguageView));
                 end;
             }
         }
     }
 
-    local procedure FilterText2List(FilterText: Text): List of [Text]
+    trigger OnOpenPage()
     begin
-        exit(FilterText.Split('|'));
+        SourceLanguageFilter := CopyStr(Rec.GetFilter("Source Language"), 1, MaxStrLen(SourceLanguageFilter));
+        DestLanguageView := CopyStr(Rec.GetFilter("Dest. Language"), 1, MaxStrLen(DestLanguageView));
+        SourceText := CopyStr(Rec.GetFilter("Source Text"), 1, MaxStrLen(SourceText));
     end;
 
-    local procedure LookupLanguage(var LookupText: Text): Boolean
+    local procedure FilterText2List(FilterText: Text): List of [Text]
+    begin
+        exit(FilterText.Replace(' ', '').Split(','));
+    end;
+
+    local procedure LookupLanguage(var LookupText: Text; MultipleSelectionAllowed: Boolean): Boolean
     var
         DictLanguage: Record "Dict. Language DT";
+        DictLanguageList: Page "Dict. Language List DT";
     begin
-        if Page.RunModal(0, DictLanguage) <> Action::LookupOK then
+        DictLanguageList.LookupMode(true);
+
+        if DictLanguageList.RunModal() <> Action::LookupOK then
             exit(false);
 
-        LookupText := DictLanguage.Code;
+        LookupText := '';
+        if MultipleSelectionAllowed then begin
+            DictLanguageList.SetSelectionFilter(DictLanguage);
+            LookupText := DictionaryMgt.LanguageRecSetToText(DictLanguage);
+        end
+        else begin
+            DictLanguageList.GetRecord(DictLanguage);
+            LookupText := DictLanguage.Code;
+        end;
+
         exit(true);
     end;
 
     var
-        SourceLanguageFilter: Text[10];
-        DestLanguageFilter: Text[10];
-        SourceText: Text[250];
+        DictionaryMgt: Codeunit "Dictionary Mgt. DT";
+        SourceLanguageFilter: Text;
+        DestLanguageView: Text;
+        SourceText: Text;
 }
