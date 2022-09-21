@@ -4,13 +4,16 @@ page 90153 "Translator Setup DT"
     ApplicationArea = All;
     UsageCategory = Administration;
     SourceTable = "Translator Setup DT";
+    Caption = 'Translator Setup';
 
     layout
     {
         area(Content)
         {
-            group(GroupName)
+            group(General)
             {
+                Caption = 'General';
+
                 field(TranslationProvider; Rec."Translation Provider")
                 {
                     ApplicationArea = All;

@@ -1,10 +1,5 @@
 codeunit 90151 "Dictionary Mgt. DT"
 {
-    procedure FindEntry(FromLanguage: Text[10]; ToLanguage: Text[10]; EntyText: Text): Text
-    begin
-
-    end;
-
     procedure Translate(TextToTranslate: Text; FromLanguage: Text; ToLanguage: List of [Text]): Boolean
     var
         TranslatorConnector: Interface "Translator Connector DT";

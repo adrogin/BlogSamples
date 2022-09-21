@@ -4,7 +4,7 @@ page 90154 "Translation Request Headers DT"
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "Translation Request Header DT";
-    Caption = 'Translation request headers';
+    Caption = 'Translation Request Headers';
 
     layout
     {
