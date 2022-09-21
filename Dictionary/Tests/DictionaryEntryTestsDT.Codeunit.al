@@ -11,19 +11,25 @@ codeunit 90157 "Dictionary Entry Tests DT"
         TranslatedText: Dictionary of [Text, Text];
         I: Integer;
     begin
+        // [SCENARIO] Translated text entries can be saved in the dictionary
+
         Initialize();
 
+        // [GIVEN] List of translations in multiple languages
         for I := 1 to LibraryRandom.RandIntInRange(3, 5) do begin
             Language := GenerateRandomText(10);
             ToLanguagesList.Add(Language);
             TranslatedText.Add(Language, GenerateRandomText(100))
         end;
 
+        // [GIVEN] Source text for translation
         SourceText := GenerateRandomText(100);
         Language := GenerateRandomText(10);
 
+        // [WHEN] Call SaveTranslatedEntries with the source text and the translations list
         DictionaryMgt.SaveTranslatedEntries(Language, ToLanguagesList, SourceText, TranslatedText);
 
+        // [THEN] A dictionary entry is created for each translated text
         VerifyDictionaryEntries(Language, ToLanguagesList, SourceText, TranslatedText);
     end;
 
@@ -35,15 +41,20 @@ codeunit 90157 "Dictionary Entry Tests DT"
         ToLanguage: Text;
         ToLanguagesList: List of [Text];
     begin
+        // [SCENARIO] Translate text to one language - translated text is saved in the dictionary
+
         Initialize();
 
+        // [GIVEN] A text to translate, source language and one destination language
         SourceText := GenerateRandomText(100);
         FromLanguage := GenerateRandomText(10);
         ToLanguage := GenerateRandomText(10);
         ToLanguagesList.Add(ToLanguage);
 
+        // [WHEN] Call Translate
         DictionaryMgt.Translate(SourceText, FromLanguage, ToLanguagesList);
 
+        // [THEN] Dictinary entry is created
         VerifyEntryExists(FromLanguage, ToLanguage, SourceText);
     end;
 
@@ -56,16 +67,21 @@ codeunit 90157 "Dictionary Entry Tests DT"
         ToLanguagesList: List of [Text];
         I: Integer;
     begin
+        // [SCENARIO] Translate text to multiple languages - translated texts are saved in the dictionary
+
         Initialize();
 
+        // [GIVEN] A text to translate, source language and one destination language
         SourceText := GenerateRandomText(100);
         FromLanguage := GenerateRandomText(10);
 
         for I := 1 to LibraryRandom.RandIntInRange(3, 5) do
             ToLanguagesList.Add(GenerateRandomText(10));
 
+        // [WHEN] Call Translate
         DictionaryMgt.Translate(SourceText, FromLanguage, ToLanguagesList);
 
+        // [THEN] Dictinary entry is created for each language
         foreach ToLanguage in ToLanguagesList do
             VerifyEntryExists(FromLanguage, ToLanguage, SourceText);
     end;

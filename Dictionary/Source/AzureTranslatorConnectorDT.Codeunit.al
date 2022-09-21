@@ -37,7 +37,7 @@ codeunit 90150 "Azure Translator Connector DT" implements "Translator Connector 
         exit(Parameters);
     end;
 
-    procedure BuildRequestBody(TextToTranslate: Text): Text
+    local procedure BuildRequestBody(TextToTranslate: Text): Text
     var
         JArr: JsonArray;
         JObj: JsonObject;
