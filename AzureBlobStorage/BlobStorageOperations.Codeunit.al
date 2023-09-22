@@ -3,15 +3,13 @@ codeunit 50100 "BLOB Storage Operations"
     procedure UploadFile()
     var
         TempBlob: Codeunit "Temp Blob";
-        StorageServicesAuthorization: Codeunit "Storage Service Authorization";
         ABSBlobClient: Codeunit "ABS Blob Client";
         ABSOperationResponse: Codeunit "ABS Operation Response";
         Authorization: Interface "Storage Service Authorization";
         BlobInStream: InStream;
         FileName: Text;
         FileDialogPromptTok: Label 'Select a file to upload';
-        AllowedFileTypesTok: Label 'Text files|*.txt';
-        ContainerNameTok: Label 'blogsample';
+        AllowedFileTypesTok: Label 'Text files|*.txt|All files|*.*';
     begin
         FileName :=
             FileManagement.BLOBImportWithFilter(TempBlob, FileDialogPromptTok, '', AllowedFileTypesTok, AllowedFileTypesTok);
@@ -29,9 +27,32 @@ codeunit 50100 "BLOB Storage Operations"
             Error(ABSOperationResponse.GetError());
     end;
 
-    procedure ListBlobsInContainer()
+    procedure ListBlobsInContainer(var ABSContainerContent: Record "ABS Container Content")
+    var
+        ABSBlobClient: Codeunit "ABS Blob Client";
+        ABSOperationResponse: Codeunit "ABS Operation Response";
+        Authorization: Interface "Storage Service Authorization";
     begin
+        Authorization := StorageServicesAuthorization.CreateSharedKey(GetSharedKey());
+        ABSBlobClient.Initialize(GetStorageAccount(), ContainerNameTok, Authorization);
+        ABSOperationResponse := ABSBlobClient.ListBlobs(ABSContainerContent);
 
+        if not ABSOperationResponse.IsSuccessful() then
+            Error(ABSOperationResponse.GetError());
+    end;
+
+    procedure DeleteBlob(BlobName: Text)
+    var
+        ABSBlobClient: Codeunit "ABS Blob Client";
+        ABSOperationResponse: Codeunit "ABS Operation Response";
+        Authorization: Interface "Storage Service Authorization";
+    begin
+        Authorization := StorageServicesAuthorization.CreateSharedKey(GetSharedKey());
+        ABSBlobClient.Initialize(GetStorageAccount(), ContainerNameTok, Authorization);
+        ABSOperationResponse := ABSBlobClient.DeleteBlob(BlobName);
+
+        if not ABSOperationResponse.IsSuccessful() then
+            Error(ABSOperationResponse.GetError());
     end;
 
     local procedure GetSharedKey(): Text
@@ -52,4 +73,6 @@ codeunit 50100 "BLOB Storage Operations"
 
     var
         FileManagement: Codeunit "File Management";
+        StorageServicesAuthorization: Codeunit "Storage Service Authorization";
+        ContainerNameTok: Label 'blogsample';
 }
