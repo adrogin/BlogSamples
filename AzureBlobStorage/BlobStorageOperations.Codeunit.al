@@ -1,6 +1,20 @@
 codeunit 50100 "BLOB Storage Operations"
 {
-    procedure UploadFile()
+    procedure ListContainers(var ABSContainer: Record "ABS Container")
+    var
+        ABSContainerClient: Codeunit "ABS Container Client";
+        ABSOperationResponse: Codeunit "ABS Operation Response";
+        Authorization: Interface "Storage Service Authorization";
+    begin
+        Authorization := StorageServicesAuthorization.CreateSharedKey(GetSharedKey());
+        ABSContainerClient.Initialize(GetStorageAccount(), Authorization);
+        ABSOperationResponse := ABSContainerClient.ListContainers(ABSContainer);
+
+        if not ABSOperationResponse.IsSuccessful() then
+            Error(ABSOperationResponse.GetError());
+    end;
+
+    procedure UploadFile(ContainerName: Text)
     var
         TempBlob: Codeunit "Temp Blob";
         ABSBlobClient: Codeunit "ABS Blob Client";
@@ -20,35 +34,35 @@ codeunit 50100 "BLOB Storage Operations"
         Authorization := StorageServicesAuthorization.CreateSharedKey(GetSharedKey());
 
         TempBlob.CreateInStream(BlobInStream);
-        ABSBlobClient.Initialize(GetStorageAccount(), ContainerNameTok, Authorization);
+        ABSBlobClient.Initialize(GetStorageAccount(), ContainerName, Authorization);
         ABSOperationResponse := ABSBlobClient.PutBlobBlockBlobStream(FileName, BlobInStream);
 
         if not ABSOperationResponse.IsSuccessful() then
             Error(ABSOperationResponse.GetError());
     end;
 
-    procedure ListBlobsInContainer(var ABSContainerContent: Record "ABS Container Content")
+    procedure ListBlobsInContainer(ContainerName: Text; var ABSContainerContent: Record "ABS Container Content")
     var
         ABSBlobClient: Codeunit "ABS Blob Client";
         ABSOperationResponse: Codeunit "ABS Operation Response";
         Authorization: Interface "Storage Service Authorization";
     begin
         Authorization := StorageServicesAuthorization.CreateSharedKey(GetSharedKey());
-        ABSBlobClient.Initialize(GetStorageAccount(), ContainerNameTok, Authorization);
+        ABSBlobClient.Initialize(GetStorageAccount(), ContainerName, Authorization);
         ABSOperationResponse := ABSBlobClient.ListBlobs(ABSContainerContent);
 
         if not ABSOperationResponse.IsSuccessful() then
             Error(ABSOperationResponse.GetError());
     end;
 
-    procedure DeleteBlob(BlobName: Text)
+    procedure DeleteBlob(ContainerName: Text; BlobName: Text)
     var
         ABSBlobClient: Codeunit "ABS Blob Client";
         ABSOperationResponse: Codeunit "ABS Operation Response";
         Authorization: Interface "Storage Service Authorization";
     begin
         Authorization := StorageServicesAuthorization.CreateSharedKey(GetSharedKey());
-        ABSBlobClient.Initialize(GetStorageAccount(), ContainerNameTok, Authorization);
+        ABSBlobClient.Initialize(GetStorageAccount(), ContainerName, Authorization);
         ABSOperationResponse := ABSBlobClient.DeleteBlob(BlobName);
 
         if not ABSOperationResponse.IsSuccessful() then
@@ -74,5 +88,4 @@ codeunit 50100 "BLOB Storage Operations"
     var
         FileManagement: Codeunit "File Management";
         StorageServicesAuthorization: Codeunit "Storage Service Authorization";
-        ContainerNameTok: Label 'blogsample';
 }

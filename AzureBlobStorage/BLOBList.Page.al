@@ -1,6 +1,6 @@
 page 50100 "BLOB List"
 {
-    PageType = List;
+    PageType = Worksheet;
     ApplicationArea = All;
     UsageCategory = Lists;
     SourceTable = "ABS Container Content";
@@ -14,6 +14,26 @@ page 50100 "BLOB List"
     {
         area(Content)
         {
+            field(ContainerNameControl; ContainerName)
+            {
+                ApplicationArea = All;
+
+                trigger OnLookup(var Text: Text): Boolean
+                var
+                    ABSContainer: Record "ABS Container";
+                    ContainersList: Page "Containers List";
+                begin
+                    ContainersList.InitializeContainersList();
+                    ContainersList.LookupMode(true);
+
+                    if ContainersList.RunModal() <> Action::LookupOK then
+                        exit(false);
+
+                    ContainersList.GetRecord(ABSContainer);
+                    Text := ABSContainer.Name;
+                    exit(true);
+                end;
+            }
             repeater(BLOBObjects)
             {
                 Caption = 'BLOB Objects';
@@ -68,10 +88,8 @@ page 50100 "BLOB List"
                 ToolTip = 'Upload a file from the local file system to the Azure BLOB Storage.';
 
                 trigger OnAction();
-                var
-                    BlobStorageOperations: Codeunit "BLOB Storage Operations";
                 begin
-                    BlobStorageOperations.UploadFile();
+                    BlobStorageOperations.UploadFile(ContainerName);
                 end;
             }
             action(ListBlobs)
@@ -81,10 +99,8 @@ page 50100 "BLOB List"
                 ToolTip = 'Retrieve the list of BLOBs from the Azure BLOB Storage.';
 
                 trigger OnAction();
-                var
-                    BlobStorageOperations: Codeunit "BLOB Storage Operations";
                 begin
-                    BlobStorageOperations.ListBlobsInContainer(Rec);
+                    BlobStorageOperations.ListBlobsInContainer(ContainerName, Rec);
                 end;
             }
             action(DeleteBlob)
@@ -94,12 +110,17 @@ page 50100 "BLOB List"
                 ToolTip = 'Delete the selected BLOB.';
 
                 trigger OnAction();
-                var
-                    BlobStorageOperations: Codeunit "BLOB Storage Operations";
                 begin
-                    BlobStorageOperations.DeleteBlob(Rec."Full Name");
+                    BlobStorageOperations.DeleteBlob(ContainerName, Rec."Full Name");
+
+                    Rec.DeleteAll();
+                    BlobStorageOperations.ListBlobsInContainer(ContainerName, Rec);
                 end;
             }
         }
     }
+
+    var
+        BlobStorageOperations: Codeunit "BLOB Storage Operations";
+        ContainerName: Text;
 }
