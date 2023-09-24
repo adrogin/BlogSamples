@@ -1,6 +1,7 @@
 codeunit 90157 "Dictionary Entry Tests DT"
 {
     Subtype = Test;
+    TestPermissions = Disabled;
 
     [Test]
     procedure SaveDictEntriesVerifyText()
@@ -84,6 +85,34 @@ codeunit 90157 "Dictionary Entry Tests DT"
         // [THEN] Dictinary entry is created for each language
         foreach ToLanguage in ToLanguagesList do
             VerifyEntryExists(FromLanguage, ToLanguage, SourceText);
+    end;
+
+    [Test]
+    procedure CannotSelectSameLanguageAsSourceAndTarget()
+    var
+        SourceText: Text;
+        FromLanguage: Text;
+        ToLanguagesList: List of [Text];
+        SameLangAsSourceAndDestErr: Label 'Same language cannot be selected as the source and target language at the same time';
+    begin
+        // [SCENARIO] Translation request fails if the same language is selected as both source and target language
+
+        Initialize();
+
+        // [GIVEN] Set the source text to translate
+        SourceText := GenerateRandomText(100);
+
+        // [GIVEN] Select the source language and list of target languages. One of the target languages is the same as source.
+        FromLanguage := GenerateRandomText(10);
+        ToLanguagesList.Add(GenerateRandomText(10));
+        ToLanguagesList.Add(FromLanguage);
+        ToLanguagesList.Add(GenerateRandomText(10));
+
+        // [WHEN] Call Translate
+        asserterror DictionaryMgt.Translate(SourceText, FromLanguage, ToLanguagesList);
+
+        // [THEN] The call fails. Error message reads that the source and target language cannot match.
+        Assert.ExpectedError(SameLangAsSourceAndDestErr);
     end;
 
     local procedure Initialize()

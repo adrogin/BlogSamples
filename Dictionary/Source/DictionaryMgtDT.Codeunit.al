@@ -4,8 +4,8 @@ codeunit 90151 "Dictionary Mgt. DT"
     var
         TranslatorConnector: Interface "Translator Connector DT";
         TranslatedText: Dictionary of [Text, Text];
-        IncompleteInputErr: Label 'Text to translate, source language, and at least one destination language must be specified.';
-        SameLangAsSourceAndDestErr: Label 'Same language cannot be selected as the source and destination language at the same time';
+        IncompleteInputErr: Label 'Text to translate, source language, and at least one target language must be specified.';
+        SameLangAsSourceAndDestErr: Label 'Same language cannot be selected as the source and target language at the same time';
     begin
         if (TextToTranslate = '') or (FromLanguage = '') or (ToLanguage.Count() = 0) then
             Error(IncompleteInputErr);

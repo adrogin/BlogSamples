@@ -95,6 +95,17 @@ page 90150 "Dictionary View DT"
 
     actions
     {
+        area(Navigation)
+        {
+            action(ServiceSetup)
+            {
+                ApplicationArea = All;
+                Caption = 'Service Setup';
+                ToolTip = 'Set up the translation service connection.';
+                RunObject = page "Translator Setup DT";
+                Image = ServiceSetup;
+            }
+        }
         area(Processing)
         {
             action(Translate)
@@ -102,8 +113,6 @@ page 90150 "Dictionary View DT"
                 ApplicationArea = All;
                 Caption = 'Translate';
                 ToolTip = 'Send the text to the translation service';
-                Promoted = true;
-                PromotedIsBig = true;
                 Image = Translation;
 
                 trigger OnAction();
@@ -113,6 +122,12 @@ page 90150 "Dictionary View DT"
                     DictionaryMgt.Translate(SourceText, SourceLanguageFilter, FilterText2List(DestLanguageView));
                 end;
             }
+        }
+
+        area(Promoted)
+        {
+            actionref(SetupPromoted; ServiceSetup) { }
+            actionref(TranslatePromoted; Translate) { }
         }
     }
 
