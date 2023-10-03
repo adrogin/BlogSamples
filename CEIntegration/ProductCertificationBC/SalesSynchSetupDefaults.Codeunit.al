@@ -18,8 +18,8 @@ codeunit 50900 "Sales Synch. Setup Defaults"
         CRMSetupDefaults.AddEntityTableMapping(ItemCertificatesMappingTok, Database::"CRM Product Certificate", TempNameValueBuffer);
     end;
 
-    [EventSubscriber(ObjectType::Codeunit, Codeunit::"CDS Setup Defaults", 'OnAfterResetConfiguration', '', false, false)]
-    local procedure SetupItemCertificateMappingOnAfterResetConfig(CDSConnectionSetup: Record "CDS Connection Setup")
+    [EventSubscriber(ObjectType::Codeunit, Codeunit::"CRM Setup Defaults", 'OnAfterResetConfiguration', '', false, false)]
+    local procedure SetupItemCertificateMappingOnAfterResetConfig(CRMConnectionSetup: Record "CRM Connection Setup")
     begin
         SetupItemCertificateTableMapping();
     end;
@@ -41,13 +41,20 @@ codeunit 50900 "Sales Synch. Setup Defaults"
         InsertIntegrationTableMapping(
             IntegrationTableMapping, ItemCertificatesMappingTok,
             Database::"Item Certificate", Database::"CRM Product Certificate",
-            ItemCertificate.FieldNo("Certificate No."), CRMProductCertificate.FieldNo(CertificateNo),
+            CRMProductCertificate.FieldNo(ProductCertificateId), CRMProductCertificate.FieldNo(ModifiedOn),
             '', '', false);
 
         IntegrationFieldMapping.CreateRecord(
             ItemCertificatesMappingTok,
+            ItemCertificate.FieldNo("Certificate No."),
+            CRMProductCertificate.FieldNo(CertificateNo),
+            IntegrationFieldMapping.Direction::FromIntegrationTable,
+            '', true, false);
+
+        IntegrationFieldMapping.CreateRecord(
+            ItemCertificatesMappingTok,
             ItemCertificate.FieldNo("Item No."),
-            CRMProductCertificate.FieldNo("Product Id"),
+            CRMProductCertificate.FieldNo("Product Number"),
             IntegrationFieldMapping.Direction::FromIntegrationTable,
             '', true, false);
 
@@ -94,6 +101,6 @@ codeunit 50900 "Sales Synch. Setup Defaults"
     var
         CRMProductName: Codeunit "CRM Product Name";
         IntegrationTablePrefixTok: Label 'Dynamics CRM', Locked = true;
-        ItemCertificatesMappingTok: Label 'ITEMCERTIFICATE';
+        ItemCertificatesMappingTok: Label 'ITEM CERTIFICATE';
         JobQueueEntryNameTok: Label ' %1 - %2 synchronization job.', Comment = '%1 = The Integration Table Name to be synchronized, %2 = CRM product name';
 }

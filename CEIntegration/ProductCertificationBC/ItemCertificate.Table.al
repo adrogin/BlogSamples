@@ -8,7 +8,11 @@ table 50901 "Item Certificate"
         {
             Caption = 'Certificate No.';
         }
-        field(2; "Item No."; Code[20])
+        field(2; "Item Id"; Guid)
+        {
+            Caption = 'Item ID';
+        }
+        field(3; "Item No."; Code[20])
         {
             Caption = 'Item No.';
         }

@@ -26,6 +26,46 @@ table 50900 "CRM Product Certificate"
             ExternalType = 'Lookup';
             TableRelation = "CRM Product".ProductId;
         }
+        field(4; "Product Number"; Code[20])
+        {
+            Caption = 'Product Number';
+            ExternalName = 'avd_productnumber';
+            ExternalType = 'String';
+        }
+        field(20; CreatedOn; DateTime)
+        {
+            Caption = 'Created On';
+            Description = 'Date and time when the product was created.';
+            ExternalAccess = Read;
+            ExternalName = 'createdon';
+            ExternalType = 'DateTime';
+        }
+        field(21; ModifiedOn; DateTime)
+        {
+            Caption = 'Modified On';
+            Description = 'Date and time when the product was last modified.';
+            ExternalAccess = Read;
+            ExternalName = 'modifiedon';
+            ExternalType = 'DateTime';
+        }
+        field(22; CreatedBy; Guid)
+        {
+            Caption = 'Created By';
+            Description = 'Unique identifier of the user who created the product.';
+            ExternalAccess = Read;
+            ExternalName = 'createdby';
+            ExternalType = 'Lookup';
+            TableRelation = "CRM Systemuser".SystemUserId;
+        }
+        field(23; ModifiedBy; Guid)
+        {
+            Caption = 'Modified By';
+            Description = 'Unique identifier of the user who last modified the product.';
+            ExternalAccess = Read;
+            ExternalName = 'modifiedby';
+            ExternalType = 'Lookup';
+            TableRelation = "CRM Systemuser".SystemUserId;
+        }
     }
 
     keys
