@@ -1,9 +1,9 @@
 <ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Entities>
     <Entity>
-      <Name LocalizedName="Product Certificate" OriginalName="Product Certificate">avd_ProductCertificate</Name>
+      <Name LocalizedName="Product Certificate" OriginalName="Product Certificate">cronus_ProductCertificate</Name>
       <EntityInfo>
-        <entity Name="avd_ProductCertificate">
+        <entity Name="cronus_ProductCertificate">
           <LocalizedNames>
             <LocalizedName description="Product Certificate" languagecode="1033" />
           </LocalizedNames>
@@ -14,121 +14,6 @@
             <Description description="" languagecode="1033" />
           </Descriptions>
           <attributes>
-            <attribute PhysicalName="avd_CertificateNo">
-              <Type>nvarchar</Type>
-              <Name>avd_certificateno</Name>
-              <LogicalName>avd_certificateno</LogicalName>
-              <RequiredLevel>required</RequiredLevel>
-              <DisplayMask>PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
-              <ImeMode>auto</ImeMode>
-              <ValidForUpdateApi>1</ValidForUpdateApi>
-              <ValidForReadApi>1</ValidForReadApi>
-              <ValidForCreateApi>1</ValidForCreateApi>
-              <IsCustomField>1</IsCustomField>
-              <IsAuditEnabled>1</IsAuditEnabled>
-              <IsSecured>0</IsSecured>
-              <IntroducedVersion>1.0</IntroducedVersion>
-              <IsCustomizable>1</IsCustomizable>
-              <IsRenameable>1</IsRenameable>
-              <CanModifySearchSettings>1</CanModifySearchSettings>
-              <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
-              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
-              <SourceType>0</SourceType>
-              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
-              <IsSortableEnabled>0</IsSortableEnabled>
-              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
-              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
-              <IsDataSourceSecret>0</IsDataSourceSecret>
-              <AutoNumberFormat></AutoNumberFormat>
-              <IsSearchable>1</IsSearchable>
-              <IsFilterable>0</IsFilterable>
-              <IsRetrievable>1</IsRetrievable>
-              <IsLocalizable>0</IsLocalizable>
-              <Format>text</Format>
-              <MaxLength>100</MaxLength>
-              <Length>200</Length>
-              <displaynames>
-                <displayname description="Certificate No." languagecode="1033" />
-              </displaynames>
-              <Descriptions>
-                <Description description="" languagecode="1033" />
-              </Descriptions>
-            </attribute>
-            <attribute PhysicalName="avd_ProductCertificateId">
-              <Type>primarykey</Type>
-              <Name>avd_productcertificateid</Name>
-              <LogicalName>avd_productcertificateid</LogicalName>
-              <RequiredLevel>systemrequired</RequiredLevel>
-              <DisplayMask>ValidForAdvancedFind|RequiredForGrid</DisplayMask>
-              <ImeMode>auto</ImeMode>
-              <ValidForUpdateApi>0</ValidForUpdateApi>
-              <ValidForReadApi>1</ValidForReadApi>
-              <ValidForCreateApi>1</ValidForCreateApi>
-              <IsCustomField>0</IsCustomField>
-              <IsAuditEnabled>0</IsAuditEnabled>
-              <IsSecured>0</IsSecured>
-              <IntroducedVersion>1.0</IntroducedVersion>
-              <IsCustomizable>1</IsCustomizable>
-              <IsRenameable>1</IsRenameable>
-              <CanModifySearchSettings>1</CanModifySearchSettings>
-              <CanModifyRequirementLevelSettings>0</CanModifyRequirementLevelSettings>
-              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
-              <SourceType>0</SourceType>
-              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
-              <IsSortableEnabled>0</IsSortableEnabled>
-              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
-              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
-              <IsDataSourceSecret>0</IsDataSourceSecret>
-              <AutoNumberFormat></AutoNumberFormat>
-              <IsSearchable>0</IsSearchable>
-              <IsFilterable>1</IsFilterable>
-              <IsRetrievable>1</IsRetrievable>
-              <IsLocalizable>0</IsLocalizable>
-              <displaynames>
-                <displayname description="Product Certificate" languagecode="1033" />
-              </displaynames>
-              <Descriptions>
-                <Description description="Unique identifier for entity instances" languagecode="1033" />
-              </Descriptions>
-            </attribute>
-            <attribute PhysicalName="avd_ProductID">
-              <Type>lookup</Type>
-              <Name>avd_productid</Name>
-              <LogicalName>avd_productid</LogicalName>
-              <RequiredLevel>none</RequiredLevel>
-              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
-              <ValidForUpdateApi>1</ValidForUpdateApi>
-              <ValidForReadApi>1</ValidForReadApi>
-              <ValidForCreateApi>1</ValidForCreateApi>
-              <IsCustomField>1</IsCustomField>
-              <IsAuditEnabled>0</IsAuditEnabled>
-              <IsSecured>0</IsSecured>
-              <IntroducedVersion>1.0.0.0</IntroducedVersion>
-              <IsCustomizable>1</IsCustomizable>
-              <IsRenameable>1</IsRenameable>
-              <CanModifySearchSettings>1</CanModifySearchSettings>
-              <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
-              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
-              <SourceType>0</SourceType>
-              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
-              <IsSortableEnabled>0</IsSortableEnabled>
-              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
-              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
-              <IsDataSourceSecret>0</IsDataSourceSecret>
-              <AutoNumberFormat></AutoNumberFormat>
-              <IsSearchable>0</IsSearchable>
-              <IsFilterable>0</IsFilterable>
-              <IsRetrievable>0</IsRetrievable>
-              <IsLocalizable>0</IsLocalizable>
-              <LookupStyle>single</LookupStyle>
-              <LookupTypes />
-              <displaynames>
-                <displayname description="Product ID" languagecode="1033" />
-              </displaynames>
-              <Descriptions>
-                <Description description="" languagecode="1033" />
-              </Descriptions>
-            </attribute>
             <attribute PhysicalName="CreatedBy">
               <Type>lookup</Type>
               <Name>createdby</Name>
@@ -246,6 +131,162 @@
               <Descriptions>
                 <Description description="Unique identifier of the delegate user who created the record." languagecode="1033" />
               </Descriptions>
+            </attribute>
+            <attribute PhysicalName="cronus_CertificateNo">
+              <Type>nvarchar</Type>
+              <Name>cronus_certificateno</Name>
+              <LogicalName>cronus_certificateno</LogicalName>
+              <RequiredLevel>required</RequiredLevel>
+              <DisplayMask>PrimaryName|ValidForAdvancedFind|ValidForForm|ValidForGrid|RequiredForForm</DisplayMask>
+              <ImeMode>auto</ImeMode>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <IsCustomField>1</IsCustomField>
+              <IsAuditEnabled>1</IsAuditEnabled>
+              <IsSecured>0</IsSecured>
+              <IntroducedVersion>1.0</IntroducedVersion>
+              <IsCustomizable>1</IsCustomizable>
+              <IsRenameable>1</IsRenameable>
+              <CanModifySearchSettings>1</CanModifySearchSettings>
+              <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+              <SourceType>0</SourceType>
+              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+              <IsSortableEnabled>0</IsSortableEnabled>
+              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+              <IsDataSourceSecret>0</IsDataSourceSecret>
+              <AutoNumberFormat></AutoNumberFormat>
+              <IsSearchable>1</IsSearchable>
+              <IsFilterable>0</IsFilterable>
+              <IsRetrievable>1</IsRetrievable>
+              <IsLocalizable>0</IsLocalizable>
+              <Format>text</Format>
+              <MaxLength>100</MaxLength>
+              <Length>200</Length>
+              <displaynames>
+                <displayname description="Certificate No." languagecode="1033" />
+              </displaynames>
+              <Descriptions>
+                <Description description="" languagecode="1033" />
+              </Descriptions>
+            </attribute>
+            <attribute PhysicalName="cronus_ProductCertificateId">
+              <Type>primarykey</Type>
+              <Name>cronus_productcertificateid</Name>
+              <LogicalName>cronus_productcertificateid</LogicalName>
+              <RequiredLevel>systemrequired</RequiredLevel>
+              <DisplayMask>ValidForAdvancedFind|RequiredForGrid</DisplayMask>
+              <ImeMode>auto</ImeMode>
+              <ValidForUpdateApi>0</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <IsCustomField>0</IsCustomField>
+              <IsAuditEnabled>0</IsAuditEnabled>
+              <IsSecured>0</IsSecured>
+              <IntroducedVersion>1.0</IntroducedVersion>
+              <IsCustomizable>1</IsCustomizable>
+              <IsRenameable>1</IsRenameable>
+              <CanModifySearchSettings>1</CanModifySearchSettings>
+              <CanModifyRequirementLevelSettings>0</CanModifyRequirementLevelSettings>
+              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+              <SourceType>0</SourceType>
+              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+              <IsSortableEnabled>0</IsSortableEnabled>
+              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+              <IsDataSourceSecret>0</IsDataSourceSecret>
+              <AutoNumberFormat></AutoNumberFormat>
+              <IsSearchable>0</IsSearchable>
+              <IsFilterable>1</IsFilterable>
+              <IsRetrievable>1</IsRetrievable>
+              <IsLocalizable>0</IsLocalizable>
+              <displaynames>
+                <displayname description="Product Certificate" languagecode="1033" />
+              </displaynames>
+              <Descriptions>
+                <Description description="Unique identifier for entity instances" languagecode="1033" />
+              </Descriptions>
+            </attribute>
+            <attribute PhysicalName="cronus_ProductID">
+              <Type>lookup</Type>
+              <Name>cronus_productid</Name>
+              <LogicalName>cronus_productid</LogicalName>
+              <RequiredLevel>none</RequiredLevel>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <ValidForUpdateApi>1</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ValidForCreateApi>1</ValidForCreateApi>
+              <IsCustomField>1</IsCustomField>
+              <IsAuditEnabled>0</IsAuditEnabled>
+              <IsSecured>0</IsSecured>
+              <IntroducedVersion>1.0.0.1</IntroducedVersion>
+              <IsCustomizable>1</IsCustomizable>
+              <IsRenameable>1</IsRenameable>
+              <CanModifySearchSettings>1</CanModifySearchSettings>
+              <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+              <SourceType>0</SourceType>
+              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+              <IsSortableEnabled>0</IsSortableEnabled>
+              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+              <IsDataSourceSecret>0</IsDataSourceSecret>
+              <AutoNumberFormat></AutoNumberFormat>
+              <IsSearchable>0</IsSearchable>
+              <IsFilterable>0</IsFilterable>
+              <IsRetrievable>0</IsRetrievable>
+              <IsLocalizable>0</IsLocalizable>
+              <LookupStyle>single</LookupStyle>
+              <LookupTypes />
+              <displaynames>
+                <displayname description="Product ID" languagecode="1033" />
+              </displaynames>
+              <Descriptions>
+                <Description description="" languagecode="1033" />
+              </Descriptions>
+            </attribute>
+            <attribute PhysicalName="cronus_ProductNumber">
+              <Type>nvarchar</Type>
+              <Name>cronus_productnumber</Name>
+              <LogicalName>cronus_productnumber</LogicalName>
+              <RequiredLevel>none</RequiredLevel>
+              <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+              <ImeMode>auto</ImeMode>
+              <ValidForUpdateApi>0</ValidForUpdateApi>
+              <ValidForReadApi>1</ValidForReadApi>
+              <ValidForCreateApi>0</ValidForCreateApi>
+              <IsCustomField>1</IsCustomField>
+              <IsAuditEnabled>0</IsAuditEnabled>
+              <IsSecured>0</IsSecured>
+              <IntroducedVersion>1.0.0.1</IntroducedVersion>
+              <IsCustomizable>1</IsCustomizable>
+              <IsRenameable>1</IsRenameable>
+              <CanModifySearchSettings>1</CanModifySearchSettings>
+              <CanModifyRequirementLevelSettings>1</CanModifyRequirementLevelSettings>
+              <CanModifyAdditionalSettings>1</CanModifyAdditionalSettings>
+              <SourceType>1</SourceType>
+              <IsGlobalFilterEnabled>0</IsGlobalFilterEnabled>
+              <IsSortableEnabled>0</IsSortableEnabled>
+              <CanModifyGlobalFilterSettings>1</CanModifyGlobalFilterSettings>
+              <CanModifyIsSortableSettings>1</CanModifyIsSortableSettings>
+              <IsDataSourceSecret>0</IsDataSourceSecret>
+              <AutoNumberFormat></AutoNumberFormat>
+              <IsSearchable>0</IsSearchable>
+              <IsFilterable>0</IsFilterable>
+              <IsRetrievable>0</IsRetrievable>
+              <IsLocalizable>0</IsLocalizable>
+              <Format>text</Format>
+              <MaxLength>4000</MaxLength>
+              <Length>8000</Length>
+              <displaynames>
+                <displayname description="Product Number" languagecode="1033" />
+              </displaynames>
+              <Descriptions>
+                <Description description="" languagecode="1033" />
+              </Descriptions>
+              <FormulaDefinitionFileName>/Formulas/cronus_productcertificate-cronus_productnumber.xaml</FormulaDefinitionFileName>
             </attribute>
             <attribute PhysicalName="ImportSequenceNumber">
               <Type>int</Type>
@@ -634,7 +675,7 @@
               <IsFilterable>1</IsFilterable>
               <IsRetrievable>0</IsRetrievable>
               <IsLocalizable>0</IsLocalizable>
-              <optionset Name="avd_productcertificate_statecode">
+              <optionset Name="cronus_productcertificate_statecode">
                 <OptionSetType>state</OptionSetType>
                 <IntroducedVersion>1.0</IntroducedVersion>
                 <IsCustomizable>1</IsCustomizable>
@@ -694,7 +735,7 @@
               <IsFilterable>0</IsFilterable>
               <IsRetrievable>0</IsRetrievable>
               <IsLocalizable>0</IsLocalizable>
-              <optionset Name="avd_productcertificate_statuscode">
+              <optionset Name="cronus_productcertificate_statuscode">
                 <OptionSetType>status</OptionSetType>
                 <IntroducedVersion>1.0</IntroducedVersion>
                 <IsCustomizable>1</IsCustomizable>
@@ -803,7 +844,7 @@
               </Descriptions>
             </attribute>
           </attributes>
-          <EntitySetName>avd_productcertificates</EntitySetName>
+          <EntitySetName>cronus_productcertificates</EntitySetName>
           <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
           <IsBusinessProcessEnabled>0</IsBusinessProcessEnabled>
           <IsRequiredOffline>0</IsRequiredOffline>
@@ -869,20 +910,20 @@
       <FormXml>
         <forms type="card">
           <systemform>
-            <formid>{7f9aed3e-1a0e-47b7-84f6-dbb15a73c14b}</formid>
+            <formid>{b8e93a3d-3f04-4f95-8aa2-81f0a4586243}</formid>
             <IntroducedVersion>1.0</IntroducedVersion>
             <FormPresentation>1</FormPresentation>
             <FormActivationState>1</FormActivationState>
             <form>
               <tabs>
-                <tab name="general" verticallayout="true" id="{ffb2849a-58e3-4a18-9d0a-390c33ea5f31}" IsUserDefined="0">
+                <tab name="general" verticallayout="true" id="{06a6191b-2948-4b30-8fda-66c23e3a8fd0}" IsUserDefined="0">
                   <labels>
                     <label description="" languagecode="1033" />
                   </labels>
                   <columns>
                     <column width="25%">
                       <sections>
-                        <section name="ColorStrip" showlabel="false" showbar="false" columns="1" IsUserDefined="0" id="{a3bda0f2-8f06-4aa1-b258-27c8abee60ea}">
+                        <section name="ColorStrip" showlabel="false" showbar="false" columns="1" IsUserDefined="0" id="{fc7411bb-738c-4f2b-9451-c589d2cc5b6a}">
                           <labels>
                             <label description="ColorStrip" languagecode="1033" />
                           </labels>
@@ -891,24 +932,24 @@
                     </column>
                     <column width="75%">
                       <sections>
-                        <section name="CardHeader" showlabel="false" showbar="false" columns="111" id="{6f511824-88f0-4b9e-8aa7-c36cdd95b2b5}" IsUserDefined="0">
+                        <section name="CardHeader" showlabel="false" showbar="false" columns="111" id="{617bb411-d222-45d2-bf4f-9e8cc70bf067}" IsUserDefined="0">
                           <labels>
                             <label description="Header" languagecode="1033" />
                           </labels>
                           <rows>
                             <row>
-                              <cell id="{0f13de72-d471-43a9-aefe-d33076c27050}" showlabel="true" locklevel="0">
+                              <cell id="{528e549d-e3c4-4d04-b341-c9ee51c4f40e}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="Status Reason" languagecode="1033" />
                                 </labels>
                                 <control id="statuscode" classid="{5D68B988-0661-4db2-BC3E-17598AD3BE6C}" datafieldname="statuscode" disabled="false" />
                               </cell>
-                              <cell id="{2d99179e-146f-4cb4-a037-02c9f6367e9c}" showlabel="true" locklevel="0">
+                              <cell id="{171cec61-ed9c-46ab-ba3c-fbddf8ce9e5e}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="" languagecode="1033" />
                                 </labels>
                               </cell>
-                              <cell id="{ba4e16dc-e1ec-46d5-830b-bb0df055d053}" showlabel="true" locklevel="0">
+                              <cell id="{0409d753-8293-4110-81af-4b5a6f9f75ab}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="" languagecode="1033" />
                                 </labels>
@@ -916,45 +957,45 @@
                             </row>
                           </rows>
                         </section>
-                        <section name="CardDetails" showlabel="false" showbar="false" columns="1" id="{97032b4f-4ce9-4d75-ac84-79b2efed0248}" IsUserDefined="0">
+                        <section name="CardDetails" showlabel="false" showbar="false" columns="1" id="{a9a821cb-fc0a-40af-b55f-47fffb91c2ad}" IsUserDefined="0">
                           <labels>
                             <label description="Details" languagecode="1033" />
                           </labels>
                           <rows>
                             <row>
-                              <cell id="{539597b7-5f4c-4135-a476-4ccc88b38aa5}" showlabel="true" locklevel="0">
+                              <cell id="{4c2b5501-20f5-4198-952c-1dd42b5f44ad}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="Certificate No." languagecode="1033" />
                                 </labels>
-                                <control id="avd_certificateno" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="avd_certificateno" disabled="false" />
+                                <control id="cronus_certificateno" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cronus_certificateno" disabled="false" />
                               </cell>
                             </row>
                           </rows>
                         </section>
-                        <section name="CardFooter" showlabel="false" columns="1111" showbar="false" id="{7cc77057-db21-491e-8aa8-de6d636a07d8}" IsUserDefined="0">
+                        <section name="CardFooter" showlabel="false" columns="1111" showbar="false" id="{5c6ef085-0804-4892-be9c-9d0b5a25c2bb}" IsUserDefined="0">
                           <labels>
                             <label description="Footer" languagecode="1033" />
                           </labels>
                           <rows>
                             <row>
-                              <cell id="{eee6593a-0ba7-4210-9f52-b5b384b4debf}" showlabel="true" locklevel="0">
+                              <cell id="{bc9b9059-4247-43c8-953e-8c4c0e05a215}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="Owner" languagecode="1033" />
                                 </labels>
                                 <control id="ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" disabled="false" />
                               </cell>
-                              <cell id="{a52284de-8a2e-4022-a724-4da6bef783f4}" showlabel="true" locklevel="0">
+                              <cell id="{de89dac9-cfed-478d-a0c8-af9797d92110}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="Created On" languagecode="1033" />
                                 </labels>
                                 <control id="createdon" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="createdon" disabled="false" />
                               </cell>
-                              <cell id="{288bace8-6fd7-4733-96da-9472eafff511}" showlabel="true" locklevel="0">
+                              <cell id="{a9e15c3d-e31d-44b6-bdcd-e404948e4493}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="" languagecode="1033" />
                                 </labels>
                               </cell>
-                              <cell id="{333938c2-4713-4611-bb4a-5cb52942dab4}" showlabel="true" locklevel="0">
+                              <cell id="{20d14209-f3fc-41de-a4c4-f7f44ea22882}" showlabel="true" locklevel="0">
                                 <labels>
                                   <label description="" languagecode="1033" />
                                 </labels>
@@ -980,34 +1021,34 @@
         </forms>
         <forms type="main">
           <systemform>
-            <formid>{fdb30806-79f2-44bf-ba97-0c22434c5829}</formid>
+            <formid>{9a9755c1-5d91-4b78-a3ff-8167dc94921c}</formid>
             <IntroducedVersion>1.0</IntroducedVersion>
             <FormPresentation>1</FormPresentation>
             <FormActivationState>1</FormActivationState>
             <form>
               <tabs>
-                <tab verticallayout="true" id="{67a1b965-1ce7-480c-b6c7-cec4473f232b}" IsUserDefined="1">
+                <tab verticallayout="true" id="{1ace8b1f-4377-4c06-835c-a5a6b51e4ab1}" IsUserDefined="1">
                   <labels>
                     <label description="General" languagecode="1033" />
                   </labels>
                   <columns>
                     <column width="100%">
                       <sections>
-                        <section showlabel="false" showbar="false" IsUserDefined="0" id="{8045724b-4541-4a26-8a13-a8824e4e442c}">
+                        <section showlabel="false" showbar="false" IsUserDefined="0" id="{84e05f7f-c894-42b3-866b-7f1791c0b2dd}">
                           <labels>
                             <label description="General" languagecode="1033" />
                           </labels>
                           <rows>
                             <row>
-                              <cell id="{fe3d6bb2-bd56-4a16-bb95-e4e8be81f033}">
+                              <cell id="{ed5c181d-55d0-4cfd-b722-c20c95ed5419}">
                                 <labels>
                                   <label description="Certificate No." languagecode="1033" />
                                 </labels>
-                                <control id="avd_certificateno" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="avd_certificateno" />
+                                <control id="cronus_certificateno" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cronus_certificateno" />
                               </cell>
                             </row>
                             <row>
-                              <cell id="{06278e18-5613-4762-a99a-f956f98a9e4c}">
+                              <cell id="{5df40ca0-eb96-4216-bcab-cdb8ba15cf73}">
                                 <labels>
                                   <label description="Owner" languagecode="1033" />
                                 </labels>
@@ -1034,34 +1075,34 @@
         </forms>
         <forms type="quick">
           <systemform>
-            <formid>{7d6c6e29-bc90-447e-9544-9759694cdb1b}</formid>
+            <formid>{afc6558c-916f-47a3-9ac7-e5b53283c749}</formid>
             <IntroducedVersion>1.0</IntroducedVersion>
             <FormPresentation>1</FormPresentation>
             <FormActivationState>1</FormActivationState>
             <form>
               <tabs>
-                <tab verticallayout="true" id="{cea11c2b-b21a-4ef3-a389-3b32fea6f0a7}" IsUserDefined="1">
+                <tab verticallayout="true" id="{cb70b49e-b221-4738-8206-bb120b3665d2}" IsUserDefined="1">
                   <labels>
                     <label description="" languagecode="1033" />
                   </labels>
                   <columns>
                     <column width="100%">
                       <sections>
-                        <section showlabel="false" showbar="false" IsUserDefined="0" id="{b7d7cc28-e441-4484-b7ab-6570b770a43a}">
+                        <section showlabel="false" showbar="false" IsUserDefined="0" id="{b3f17bc9-8850-432c-ace5-feb7c17b3769}">
                           <labels>
                             <label description="GENERAL" languagecode="1033" />
                           </labels>
                           <rows>
                             <row>
-                              <cell id="{126f1712-a877-4d5b-bba2-31f0f6b28cb4}">
+                              <cell id="{d7fba41b-4332-4040-9f4c-6d5929ab4d58}">
                                 <labels>
                                   <label description="Certificate No." languagecode="1033" />
                                 </labels>
-                                <control id="avd_certificateno" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="avd_certificateno" />
+                                <control id="cronus_certificateno" classid="{4273EDBD-AC1D-40d3-9FB2-095C621B552D}" datafieldname="cronus_certificateno" />
                               </cell>
                             </row>
                             <row>
-                              <cell id="{4d73b7c8-f4c2-4fa6-9b7c-91f473a7b296}">
+                              <cell id="{57be865a-14d8-4067-b961-d6e1d9fa1274}">
                                 <labels>
                                   <label description="Owner" languagecode="1033" />
                                 </labels>
@@ -1092,11 +1133,11 @@
             <isquickfindquery>0</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>1</isdefault>
-            <savedqueryid>{4329814c-251f-4619-9cae-52d199c58198}</savedqueryid>
+            <savedqueryid>{6aaed680-db85-47b6-89de-df4235c029e8}</savedqueryid>
             <layoutxml>
-              <grid name="resultset" jump="avd_certificateno" select="1" icon="1" preview="1">
-                <row name="result" id="avd_productcertificateid">
-                  <cell name="avd_certificateno" width="300" />
+              <grid name="resultset" jump="cronus_certificateno" select="1" icon="1" preview="1">
+                <row name="result" id="cronus_productcertificateid">
+                  <cell name="cronus_certificateno" width="300" />
                   <cell name="createdon" width="125" />
                 </row>
               </grid>
@@ -1104,11 +1145,11 @@
             <querytype>0</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
-                  <attribute name="avd_certificateno" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
+                  <attribute name="cronus_certificateno" />
                   <attribute name="createdon" />
-                  <order attribute="avd_certificateno" descending="false" />
+                  <order attribute="cronus_certificateno" descending="false" />
                   <filter type="and">
                     <condition attribute="statecode" operator="eq" value="0" />
                   </filter>
@@ -1126,11 +1167,11 @@
             <isquickfindquery>0</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>0</isdefault>
-            <savedqueryid>{863b5b7d-fefa-4e85-b3c1-dbbc75403e8e}</savedqueryid>
+            <savedqueryid>{c46f3544-d11a-4de1-b236-47ea75a68a17}</savedqueryid>
             <layoutxml>
-              <grid name="resultset" jump="avd_certificateno" select="1" icon="1" preview="1">
-                <row name="result" id="avd_productcertificateid">
-                  <cell name="avd_certificateno" width="300" />
+              <grid name="resultset" jump="cronus_certificateno" select="1" icon="1" preview="1">
+                <row name="result" id="cronus_productcertificateid">
+                  <cell name="cronus_certificateno" width="300" />
                   <cell name="createdon" width="125" />
                 </row>
               </grid>
@@ -1138,11 +1179,11 @@
             <querytype>0</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
-                  <attribute name="avd_certificateno" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
+                  <attribute name="cronus_certificateno" />
                   <attribute name="createdon" />
-                  <order attribute="avd_certificateno" descending="false" />
+                  <order attribute="cronus_certificateno" descending="false" />
                   <filter type="and">
                     <condition attribute="statecode" operator="eq" value="1" />
                   </filter>
@@ -1160,12 +1201,12 @@
             <isquickfindquery>0</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>1</isdefault>
-            <savedqueryid>{fa5a4577-d15f-ee11-be6f-000d3a99034a}</savedqueryid>
+            <savedqueryid>{230a169b-f962-ee11-8def-000d3a99034a}</savedqueryid>
             <querytype>8192</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical" output-format="xml-platform">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
                   <filter type="and">
                     <condition attribute="statecode" operator="eq" value="0" />
                     <condition attribute="ownerid" operator="eq-userid" />
@@ -1187,11 +1228,11 @@
             <isquickfindquery>0</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>1</isdefault>
-            <savedqueryid>{ae982be9-39e2-4820-933f-83bfa2b90b12}</savedqueryid>
+            <savedqueryid>{173afd52-a1d4-4b82-9009-35ba98702616}</savedqueryid>
             <layoutxml>
-              <grid name="resultset" jump="avd_certificateno" select="1" icon="1" preview="1">
-                <row name="result" id="avd_productcertificateid">
-                  <cell name="avd_certificateno" width="300" />
+              <grid name="resultset" jump="cronus_certificateno" select="1" icon="1" preview="1">
+                <row name="result" id="cronus_productcertificateid">
+                  <cell name="cronus_certificateno" width="300" />
                   <cell name="createdon" width="125" />
                 </row>
               </grid>
@@ -1199,11 +1240,11 @@
             <querytype>1</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
-                  <attribute name="avd_certificateno" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
+                  <attribute name="cronus_certificateno" />
                   <attribute name="createdon" />
-                  <order attribute="avd_certificateno" descending="false" />
+                  <order attribute="cronus_certificateno" descending="false" />
                 </entity>
               </fetch>
             </fetchxml>
@@ -1218,11 +1259,11 @@
             <isquickfindquery>0</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>1</isdefault>
-            <savedqueryid>{4a217ae1-5d87-4c24-b216-e9b8e7284400}</savedqueryid>
+            <savedqueryid>{9bac2312-0183-48a3-b52a-ebfba522ab5c}</savedqueryid>
             <layoutxml>
-              <grid name="avd_productcertificates" jump="avd_certificateno" select="1" icon="1" preview="1">
-                <row name="avd_productcertificate" id="avd_productcertificateid">
-                  <cell name="avd_certificateno" width="300" />
+              <grid name="cronus_productcertificates" jump="cronus_certificateno" select="1" icon="1" preview="1">
+                <row name="cronus_productcertificate" id="cronus_productcertificateid">
+                  <cell name="cronus_certificateno" width="300" />
                   <cell name="createdon" width="125" />
                 </row>
               </grid>
@@ -1230,11 +1271,11 @@
             <querytype>2</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
-                  <attribute name="avd_certificateno" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
+                  <attribute name="cronus_certificateno" />
                   <attribute name="createdon" />
-                  <order attribute="avd_certificateno" descending="false" />
+                  <order attribute="cronus_certificateno" descending="false" />
                   <filter type="and">
                     <condition attribute="statecode" operator="eq" value="0" />
                   </filter>
@@ -1252,11 +1293,11 @@
             <isquickfindquery>0</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>1</isdefault>
-            <savedqueryid>{7bb8feb9-c4b1-4282-9462-5c9e828dd128}</savedqueryid>
+            <savedqueryid>{7e306f3f-b35a-4d24-b5eb-3d2eaf0b05af}</savedqueryid>
             <layoutxml>
-              <grid name="avd_productcertificates" jump="avd_certificateno" select="1" icon="1" preview="0">
-                <row name="avd_productcertificate" id="avd_productcertificateid">
-                  <cell name="avd_certificateno" width="300" />
+              <grid name="cronus_productcertificates" jump="cronus_certificateno" select="1" icon="1" preview="0">
+                <row name="cronus_productcertificate" id="cronus_productcertificateid">
+                  <cell name="cronus_certificateno" width="300" />
                   <cell name="createdon" width="125" />
                 </row>
               </grid>
@@ -1264,9 +1305,9 @@
             <querytype>64</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
-                  <attribute name="avd_certificateno" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
+                  <attribute name="cronus_certificateno" />
                   <attribute name="createdon" />
                   <filter type="and">
                     <condition attribute="statecode" operator="eq" value="0" />
@@ -1285,11 +1326,11 @@
             <isquickfindquery>1</isquickfindquery>
             <isprivate>0</isprivate>
             <isdefault>1</isdefault>
-            <savedqueryid>{cdc9aeab-64e1-4994-b5d1-dc486bae3bab}</savedqueryid>
+            <savedqueryid>{86653607-5433-4c26-8bc4-0808e98cac91}</savedqueryid>
             <layoutxml>
-              <grid name="resultset" jump="avd_certificateno" select="1" icon="1" preview="1">
-                <row name="result" id="avd_productcertificateid">
-                  <cell name="avd_certificateno" width="300" />
+              <grid name="resultset" jump="cronus_certificateno" select="1" icon="1" preview="1">
+                <row name="result" id="cronus_productcertificateid">
+                  <cell name="cronus_certificateno" width="300" />
                   <cell name="createdon" width="125" />
                 </row>
               </grid>
@@ -1297,16 +1338,16 @@
             <querytype>4</querytype>
             <fetchxml>
               <fetch version="1.0" mapping="logical">
-                <entity name="avd_productcertificate">
-                  <attribute name="avd_productcertificateid" />
-                  <attribute name="avd_certificateno" />
+                <entity name="cronus_productcertificate">
+                  <attribute name="cronus_productcertificateid" />
+                  <attribute name="cronus_certificateno" />
                   <attribute name="createdon" />
-                  <order attribute="avd_certificateno" descending="false" />
+                  <order attribute="cronus_certificateno" descending="false" />
                   <filter type="and">
                     <condition attribute="statecode" operator="eq" value="0" />
                   </filter>
                   <filter type="or" isquickfindfields="1">
-                    <condition attribute="avd_certificateno" operator="like" value="{0}" />
+                    <condition attribute="cronus_certificateno" operator="like" value="{0}" />
                   </filter>
                 </entity>
               </fetch>
@@ -1411,47 +1452,12 @@
   <Templates />
   <EntityMaps />
   <EntityRelationships>
-    <EntityRelationship Name="avd_avd_productcertificate_ProductID_product">
-      <EntityRelationshipType>OneToMany</EntityRelationshipType>
-      <IsCustomizable>1</IsCustomizable>
-      <IntroducedVersion>1.0.0.0</IntroducedVersion>
-      <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
-      <ReferencedEntityName>Product</ReferencedEntityName>
-      <CascadeAssign>NoCascade</CascadeAssign>
-      <CascadeDelete>RemoveLink</CascadeDelete>
-      <CascadeArchive>RemoveLink</CascadeArchive>
-      <CascadeReparent>NoCascade</CascadeReparent>
-      <CascadeShare>NoCascade</CascadeShare>
-      <CascadeUnshare>NoCascade</CascadeUnshare>
-      <CascadeRollupView>NoCascade</CascadeRollupView>
-      <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
-      <ReferencingAttributeName>avd_ProductID</ReferencingAttributeName>
-      <RelationshipDescription>
-        <Descriptions>
-          <Description description="" languagecode="1033" />
-        </Descriptions>
-      </RelationshipDescription>
-      <EntityRelationshipRoles>
-        <EntityRelationshipRole>
-          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
-          <NavPaneArea>Details</NavPaneArea>
-          <NavPaneOrder>10000</NavPaneOrder>
-          <NavigationPropertyName>avd_ProductID</NavigationPropertyName>
-          <RelationshipRoleType>1</RelationshipRoleType>
-        </EntityRelationshipRole>
-        <EntityRelationshipRole>
-          <NavigationPropertyName>avd_avd_productcertificate_ProductID_product</NavigationPropertyName>
-          <RelationshipRoleType>0</RelationshipRoleType>
-        </EntityRelationshipRole>
-      </EntityRelationshipRoles>
-    </EntityRelationship>
-    <EntityRelationship Name="business_unit_avd_productcertificate">
+    <EntityRelationship Name="business_unit_cronus_productcertificate">
       <EntityRelationshipType>OneToMany</EntityRelationshipType>
       <IsCustomizable>1</IsCustomizable>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
       <ReferencedEntityName>BusinessUnit</ReferencedEntityName>
       <CascadeAssign>NoCascade</CascadeAssign>
       <CascadeDelete>NoCascade</CascadeDelete>
@@ -1466,12 +1472,47 @@
         </Descriptions>
       </RelationshipDescription>
     </EntityRelationship>
-    <EntityRelationship Name="lk_avd_productcertificate_createdby">
+    <EntityRelationship Name="cronus_cronus_productcertificate_ProductID_produ">
+      <EntityRelationshipType>OneToMany</EntityRelationshipType>
+      <IsCustomizable>1</IsCustomizable>
+      <IntroducedVersion>1.0.0.1</IntroducedVersion>
+      <IsHierarchical>0</IsHierarchical>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
+      <ReferencedEntityName>Product</ReferencedEntityName>
+      <CascadeAssign>NoCascade</CascadeAssign>
+      <CascadeDelete>RemoveLink</CascadeDelete>
+      <CascadeArchive>RemoveLink</CascadeArchive>
+      <CascadeReparent>NoCascade</CascadeReparent>
+      <CascadeShare>NoCascade</CascadeShare>
+      <CascadeUnshare>NoCascade</CascadeUnshare>
+      <CascadeRollupView>NoCascade</CascadeRollupView>
+      <IsValidForAdvancedFind>1</IsValidForAdvancedFind>
+      <ReferencingAttributeName>cronus_ProductID</ReferencingAttributeName>
+      <RelationshipDescription>
+        <Descriptions>
+          <Description description="" languagecode="1033" />
+        </Descriptions>
+      </RelationshipDescription>
+      <EntityRelationshipRoles>
+        <EntityRelationshipRole>
+          <NavPaneDisplayOption>UseCollectionName</NavPaneDisplayOption>
+          <NavPaneArea>Details</NavPaneArea>
+          <NavPaneOrder>10000</NavPaneOrder>
+          <NavigationPropertyName>cronus_ProductID</NavigationPropertyName>
+          <RelationshipRoleType>1</RelationshipRoleType>
+        </EntityRelationshipRole>
+        <EntityRelationshipRole>
+          <NavigationPropertyName>cronus_cronus_productcertificate_ProductID_produ</NavigationPropertyName>
+          <RelationshipRoleType>0</RelationshipRoleType>
+        </EntityRelationshipRole>
+      </EntityRelationshipRoles>
+    </EntityRelationship>
+    <EntityRelationship Name="lk_cronus_productcertificate_createdby">
       <EntityRelationshipType>OneToMany</EntityRelationshipType>
       <IsCustomizable>1</IsCustomizable>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
       <ReferencedEntityName>SystemUser</ReferencedEntityName>
       <CascadeAssign>NoCascade</CascadeAssign>
       <CascadeDelete>NoCascade</CascadeDelete>
@@ -1486,12 +1527,12 @@
         </Descriptions>
       </RelationshipDescription>
     </EntityRelationship>
-    <EntityRelationship Name="lk_avd_productcertificate_modifiedby">
+    <EntityRelationship Name="lk_cronus_productcertificate_modifiedby">
       <EntityRelationshipType>OneToMany</EntityRelationshipType>
       <IsCustomizable>1</IsCustomizable>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
       <ReferencedEntityName>SystemUser</ReferencedEntityName>
       <CascadeAssign>NoCascade</CascadeAssign>
       <CascadeDelete>NoCascade</CascadeDelete>
@@ -1506,12 +1547,12 @@
         </Descriptions>
       </RelationshipDescription>
     </EntityRelationship>
-    <EntityRelationship Name="owner_avd_productcertificate">
+    <EntityRelationship Name="owner_cronus_productcertificate">
       <EntityRelationshipType>OneToMany</EntityRelationshipType>
       <IsCustomizable>1</IsCustomizable>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
       <ReferencedEntityName>Owner</ReferencedEntityName>
       <CascadeAssign>NoCascade</CascadeAssign>
       <CascadeDelete>NoCascade</CascadeDelete>
@@ -1526,12 +1567,12 @@
         </Descriptions>
       </RelationshipDescription>
     </EntityRelationship>
-    <EntityRelationship Name="team_avd_productcertificate">
+    <EntityRelationship Name="team_cronus_productcertificate">
       <EntityRelationshipType>OneToMany</EntityRelationshipType>
       <IsCustomizable>1</IsCustomizable>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
       <ReferencedEntityName>Team</ReferencedEntityName>
       <CascadeAssign>NoCascade</CascadeAssign>
       <CascadeDelete>NoCascade</CascadeDelete>
@@ -1546,12 +1587,12 @@
         </Descriptions>
       </RelationshipDescription>
     </EntityRelationship>
-    <EntityRelationship Name="user_avd_productcertificate">
+    <EntityRelationship Name="user_cronus_productcertificate">
       <EntityRelationshipType>OneToMany</EntityRelationshipType>
       <IsCustomizable>1</IsCustomizable>
       <IntroducedVersion>1.0</IntroducedVersion>
       <IsHierarchical>0</IsHierarchical>
-      <ReferencingEntityName>avd_ProductCertificate</ReferencingEntityName>
+      <ReferencingEntityName>cronus_ProductCertificate</ReferencingEntityName>
       <ReferencedEntityName>SystemUser</ReferencedEntityName>
       <CascadeAssign>NoCascade</CascadeAssign>
       <CascadeDelete>NoCascade</CascadeDelete>

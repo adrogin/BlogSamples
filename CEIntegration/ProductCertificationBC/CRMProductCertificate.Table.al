@@ -1,7 +1,7 @@
 table 50900 "CRM Product Certificate"
 {
     Caption = 'CRM Product Certificate';
-    ExternalName = 'avd_productcertificate';
+    ExternalName = 'cronus_productcertificate';
     TableType = CRM;
 
     fields
@@ -9,27 +9,27 @@ table 50900 "CRM Product Certificate"
         field(1; ProductCertificateId; Guid)
         {
             Caption = 'Certificate ID';
-            ExternalName = 'avd_productcertificateid';
+            ExternalName = 'cronus_productcertificateid';
             ExternalAccess = Insert;
             ExternalType = 'Uniqueidentifier';
         }
         field(2; CertificateNo; Text[100])
         {
             Caption = 'Certificate No.';
-            ExternalName = 'avd_certificateno';
+            ExternalName = 'cronus_certificateno';
             ExternalType = 'String';
         }
         field(3; "Product Id"; Text[250])
         {
             Caption = 'Product ID';
-            ExternalName = 'avd_productid';
+            ExternalName = 'cronus_productid';
             ExternalType = 'Lookup';
             TableRelation = "CRM Product".ProductId;
         }
         field(4; "Product Number"; Code[20])
         {
             Caption = 'Product Number';
-            ExternalName = 'avd_productnumber';
+            ExternalName = 'cronus_productnumber';
             ExternalType = 'String';
         }
         field(20; CreatedOn; DateTime)

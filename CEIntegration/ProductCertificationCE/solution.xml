@@ -5,18 +5,18 @@
       <LocalizedName description="Product Certification" languagecode="1033" />
     </LocalizedNames>
     <Descriptions />
-    <Version>1.0.0.1</Version>
+    <Version>1.0.0.2</Version>
     <Managed>0</Managed>
     <Publisher>
-      <UniqueName>AlexanderDrogin</UniqueName>
+      <UniqueName>Cronus</UniqueName>
       <LocalizedNames>
-        <LocalizedName description="Alexander Drogin" languagecode="1033" />
+        <LocalizedName description="Cronus Inc." languagecode="1033" />
       </LocalizedNames>
       <Descriptions />
       <EMailAddress xsi:nil="true"></EMailAddress>
       <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
-      <CustomizationPrefix>avd</CustomizationPrefix>
-      <CustomizationOptionValuePrefix>75199</CustomizationOptionValuePrefix>
+      <CustomizationPrefix>cronus</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>33004</CustomizationOptionValuePrefix>
       <Addresses>
         <Address>
           <AddressNumber>1</AddressNumber>
@@ -77,7 +77,7 @@
       </Addresses>
     </Publisher>
     <RootComponents>
-      <RootComponent type="1" schemaName="avd_productcertificate" behavior="0" />
+      <RootComponent type="1" schemaName="cronus_productcertificate" behavior="0" />
       <RootComponent type="1" schemaName="product" behavior="1" />
     </RootComponents>
     <MissingDependencies>
@@ -91,13 +91,25 @@
         <Required type="2" schemaName="name" displayName="Name" parentSchemaName="product" parentDisplayName="Product" solution="msdynce_ProductManagement (9.0.4.0066)">
           <package>msdynce_ProductManagementAnchor (9.0.23083.10001)</package>
         </Required>
-        <Dependent type="10" schemaName="avd_avd_productcertificate_ProductID_product" displayName="avd_avd_productcertificate_ProductID_product" parentSchemaName="product" parentDisplayName="Product" />
+        <Dependent type="10" schemaName="cronus_cronus_productcertificate_ProductID_produ" displayName="cronus_cronus_productcertificate_ProductID_produ" parentSchemaName="product" parentDisplayName="Product" />
       </MissingDependency>
       <MissingDependency>
         <Required type="2" schemaName="productid" displayName="Product" parentSchemaName="product" parentDisplayName="Product" solution="msdynce_ProductManagement (9.0.4.0066)">
           <package>msdynce_ProductManagementAnchor (9.0.23083.10001)</package>
         </Required>
-        <Dependent type="10" schemaName="avd_avd_productcertificate_ProductID_product" displayName="avd_avd_productcertificate_ProductID_product" parentSchemaName="product" parentDisplayName="Product" />
+        <Dependent type="10" schemaName="cronus_cronus_productcertificate_ProductID_produ" displayName="cronus_cronus_productcertificate_ProductID_produ" parentSchemaName="product" parentDisplayName="Product" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="productid" displayName="Product" parentSchemaName="product" parentDisplayName="Product" solution="msdynce_ProductManagement (9.0.4.0066)">
+          <package>msdynce_ProductManagementAnchor (9.0.23083.10001)</package>
+        </Required>
+        <Dependent type="2" schemaName="cronus_productnumber" displayName="Product Number" parentSchemaName="cronus_productcertificate" parentDisplayName="Product Certificate" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="2" schemaName="productnumber" displayName="Product ID" parentSchemaName="product" parentDisplayName="Product" solution="msdynce_ProductManagement (9.0.4.0066)">
+          <package>msdynce_ProductManagementAnchor (9.0.23083.10001)</package>
+        </Required>
+        <Dependent type="2" schemaName="cronus_productnumber" displayName="Product Number" parentSchemaName="cronus_productcertificate" parentDisplayName="Product Certificate" />
       </MissingDependency>
     </MissingDependencies>
   </SolutionManifest>
