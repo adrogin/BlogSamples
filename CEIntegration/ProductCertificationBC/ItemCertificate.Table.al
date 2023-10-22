@@ -16,6 +16,16 @@ table 50901 "Item Certificate"
         {
             Caption = 'Item No.';
         }
+        field(4; "Item Dscription"; Text[100])
+        {
+            Caption = 'Item Description';
+            FieldClass = FlowField;
+            CalcFormula = lookup(Item.Description where("No." = field("Item No.")));
+        }
+        field(5; "Certification Status"; Enum "Product Certification Status")
+        {
+            Caption = 'Certification Status';
+        }
     }
 
     keys

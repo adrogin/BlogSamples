@@ -32,6 +32,12 @@ table 50900 "CRM Product Certificate"
             ExternalName = 'cronus_productnumber';
             ExternalType = 'String';
         }
+        field(5; "Certification Status"; Enum "Product Certification Status")
+        {
+            Caption = 'Certification Status';
+            ExternalName = 'cronus_certificationstatus';
+            ExternalType = 'Picklist';
+        }
         field(20; CreatedOn; DateTime)
         {
             Caption = 'Created On';

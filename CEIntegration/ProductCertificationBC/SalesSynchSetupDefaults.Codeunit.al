@@ -58,6 +58,13 @@ codeunit 50900 "Sales Synch. Setup Defaults"
             IntegrationFieldMapping.Direction::FromIntegrationTable,
             '', true, false);
 
+        IntegrationFieldMapping.CreateRecord(
+            ItemCertificatesMappingTok,
+            ItemCertificate.FieldNo("Certification Status"),
+            CRMProductCertificate.FieldNo("Certification Status"),
+            IntegrationFieldMapping.Direction::FromIntegrationTable,
+            '', true, false);
+
         RecreateJobQueueEntryFromIntTableMapping(IntegrationTableMapping, 30, true, 1440, CRMProductName.CDSServiceName());
     end;
 
