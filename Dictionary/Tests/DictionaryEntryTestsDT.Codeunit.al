@@ -115,6 +115,33 @@ codeunit 90157 "Dictionary Entry Tests DT"
         Assert.ExpectedError(SameLangAsSourceAndDestErr);
     end;
 
+    [Test]
+    procedure UppercaseLanguageCodeTranslationAddedToDictionary()
+    var
+        SourceText: Text;
+        FromLanguage: Text;
+        ToLanguages: List of [Text];
+    begin
+        // [SCENARIO] Response from the translation service can be successfully processed when the taret language code is in uppercase
+
+        Initialize();
+
+        // [GIVEN] Set the source text for the translation
+        SourceText := GenerateRandomText(100);
+
+        // [GIVEN] Set the source language code
+        FromLanguage := GenerateRandomText(10);
+
+        // [GIVEN] Set the target language code. Code is uppercased.
+        ToLanguages.Add(UpperCase(GenerateRandomText(10)));
+
+        // [WHEN] Translate the text and save the translation
+        DictionaryMgt.Translate(SourceText, FromLanguage, ToLanguages);
+
+        // [THEN] Dictionary entry is created
+        VerifyEntryExists(FromLanguage, ToLanguages.Get(1), SourceText);
+    end;
+
     local procedure Initialize()
     var
         TranslatorSetup: Record "Translator Setup DT";
