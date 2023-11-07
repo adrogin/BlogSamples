@@ -11,7 +11,7 @@ codeunit 90156 "Azure Connector Mock DT" implements "Translator Connector DT"
         Response: Dictionary of [Text, Text];
     begin
         foreach Language in DestLanguage do
-            Response.Add(Language, LibraryUtility.GenerateRandomAlphabeticText(LIbraryRandom.RandInt(100), LiteralOption::Literal));
+            Response.Add(LowerCase(Language), LibraryUtility.GenerateRandomAlphabeticText(LIbraryRandom.RandInt(100), LiteralOption::Literal));
 
         exit(Response);
     end;

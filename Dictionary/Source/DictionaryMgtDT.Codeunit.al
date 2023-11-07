@@ -33,7 +33,7 @@ codeunit 90151 "Dictionary Mgt. DT"
         TextEntry: Text;
     begin
         foreach Lang in ToLanguages do begin
-            TranslatedText.Get(Lang, TextEntry);
+            TranslatedText.Get(LowerCase(Lang), TextEntry);
             InsertDictionaryEntry(FromLanguage, Lang, SourceText, TextEntry);
         end;
     end;
