@@ -101,6 +101,7 @@ page 50701 "Locking Test"
                 ApplicationArea = All;
                 Caption = 'Initialize Table';
                 Image = New;
+                ToolTip = 'Initialize the demo data. This action deletes all records from the Locking Test table and generates a new recordset.';
 
                 trigger OnAction()
                 begin
@@ -115,6 +116,7 @@ page 50701 "Locking Test"
                 ApplicationArea = All;
                 Caption = 'Refresh';
                 Image = Refresh;
+                ToolTip = 'Refresh the events from the background sessions.';
 
                 trigger OnAction()
                 begin
