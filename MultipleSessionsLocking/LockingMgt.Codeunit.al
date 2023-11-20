@@ -4,9 +4,9 @@ codeunit 50701 "Locking Mgt."
     var
         SessionIds: List of [Integer];
     begin
-        ClearTables();
+        InitializeTestScenario();
         SessionIds.Add(ModifyRecordsFromTop(1, 0, 35000));
-        SessionIds.Add(ModifyRecordsFromBottom(15000, 2000, 0));
+        SessionIds.Add(ModifyRecordsFromBottom(15000, 2000, 10000));
 
         exit(SessionIds);
     end;
@@ -15,7 +15,7 @@ codeunit 50701 "Locking Mgt."
     var
         SessionIds: List of [Integer];
     begin
-        ClearTables();
+        InitializeTestScenario();
         SessionIds.Add(ModifyRecordsFromTop(15000, 0, 35000));
         SessionIds.Add(ModifyRecordsFromBottom(1, 2000, 0));
 
@@ -26,7 +26,7 @@ codeunit 50701 "Locking Mgt."
     var
         SessionIds: List of [Integer];
     begin
-        ClearTables();
+        InitializeTestScenario();
         SessionIds.Add(ModifyRecordsFromTop(1, 0, 35000));
         SessionIds.Add(ReadRecordsFromBottom(15000, 2000, 0, Enum::"Session Lock Type"::"Repeatable Read"));
 
@@ -37,7 +37,7 @@ codeunit 50701 "Locking Mgt."
     var
         SessionIds: List of [Integer];
     begin
-        ClearTables();
+        InitializeTestScenario();
         SessionIds.Add(ReadRecordsFromTop(15000, 0, 35000, Enum::"Session Lock Type"::"Repeatable Read"));
         SessionIds.Add(ModifyRecordsFromBottom(1, 2000, 0));
 
@@ -49,7 +49,7 @@ codeunit 50701 "Locking Mgt."
         SessionParameters: Record "Session Parameters";
         SessionIds: List of [Integer];
     begin
-        ClearTables();
+        InitializeTestScenario();
         SessionIds.Add(ReadRecordsFromTop(15000, 0, 35000, Enum::"Session Lock Type"::"Repeatable Read"));
 
         // Setting the first and the last entry no. to -1, so that Modify does not find anything to update
@@ -133,6 +133,34 @@ codeunit 50701 "Locking Mgt."
         exit(StartSessionWithParameters(SessionParameters));
     end;
 
+    procedure GetLastSessionIDs(): List of [Integer]
+    var
+        LockingSessionEvent: Record "Locking Session Event";
+        SessionIDs: List of [Integer];
+    begin
+        if LockingSessionEvent.FindSet() then
+            repeat
+                if not SessionIDs.Contains(LockingSessionEvent."Session ID") then
+                    SessionIDs.Add(LockingSessionEvent."Session ID");
+            until LockingSessionEvent.Next() = 0;
+
+        exit(SessionIDs);
+    end;
+
+    procedure IsSessionActive(SessionID: Integer): Boolean
+    var
+        ActiveSession: Record "Active Session";
+    begin
+        ActiveSession.SetRange("Session ID", SessionID);
+        exit(not ActiveSession.IsEmpty());
+    end;
+
+    local procedure InitializeTestScenario()
+    begin
+        VerifyTestNotRunning();
+        ClearTables();
+    end;
+
     local procedure InitSessionParameters(
         Action: Enum "Session Action"; FirstRecorsNo: Integer; LastRecordNo: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Record "Session Parameters"
     var
@@ -170,5 +198,30 @@ codeunit 50701 "Locking Mgt."
     begin
         SessionParameters.DeleteAll();
         LockingSessionEvevnt.DeleteAll();
+    end;
+
+    procedure StopActiveSessions()
+    var
+        SessionIDs: List of [Integer];
+        SessionId: Integer;
+    begin
+        SessionIDs := GetLastSessionIDs();
+        foreach SessionId in SessionIDs do
+            StopSession(SessionId);
+    end;
+
+    local procedure VerifyTestNotRunning()
+    var
+        SessionIDs: List of [Integer];
+        SessionId: Integer;
+        TestSessionActiveErr: Label 'Test session is currently active. Wait for the current test to complete or stop it before starting a new test.';
+    begin
+        SessionIDs := GetLastSessionIDs();
+        if SessionIDs.Count = 0 then
+            exit;
+
+        foreach SessionId in SessionIDs do
+            if IsSessionActive(SessionId) then
+                Error(TestSessionActiveErr);
     end;
 }

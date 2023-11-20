@@ -36,77 +36,101 @@ page 50701 "Locking Test"
     {
         area(Processing)
         {
-            action(ModifyOneFirst)
+            group(TestScenarios)
             {
-                ApplicationArea = All;
-                Caption = 'Modify - One record first';
-                Image = UpdateDescription;
-                ToolTip = 'Run the locking test with the first session modifying one record, an the second session modifying a range.';
+                Caption = 'Test Scenarios';
+                Image = Lock;
 
-                trigger OnAction()
-                begin
-                    FilterSessionEventViews(LockingMgt.RunLockingScenarioModifyOneBeforeRange());
-                end;
+                action(ModifyOneFirst)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Modify - One record first';
+                    Image = UpdateDescription;
+                    ToolTip = 'Run the locking test with the first session modifying one record, an the second session modifying a range.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioModifyOneBeforeRange());
+                    end;
+                }
+                action(ModifyRangeFirst)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Modify - Range first';
+                    Image = UpdateDescription;
+                    ToolTip = 'Run the locking test with the first session modifying a range, and the second session modifying one record.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioModifyRangeBeforeOne());
+                    end;
+                }
+                action(ModifyOneFirstReadRangeRepeatableRead)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Read - One record first';
+                    Image = UpdateDescription;
+                    ToolTip = 'Run the locking test with the first session modifying one record, and the second session reading a range with RepeatableRead isolation.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioModifyOneBeforeReadingRangeRepeatableRead());
+                    end;
+                }
+                action(ReadRangeFirstRepeatableRead)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Read - Range first';
+                    Image = UpdateDescription;
+                    ToolTip = 'Run the locking test with the first session reading a range with RepeatableRead isolation, and the second session modifying one record.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioReadRangeRepeatableReadBeforeModifyOne());
+                    end;
+                }
+                action(ReadRangeFirstRepeatableReadModifyNone)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Read and modify - Nothing in range';
+                    Image = UpdateDescription;
+                    ToolTip = 'Run the locking test with the first session reading a range with RepeatableRead isolation, and the second session attempting to modify.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioReadRangeRepeatableReadBeforeModifyNone());
+                    end;
+                }
             }
-            action(ModifyRangeFirst)
+            group(TestManagement)
             {
-                ApplicationArea = All;
-                Caption = 'Modify - Range first';
-                Image = UpdateDescription;
-                ToolTip = 'Run the locking test with the first session modifying a range, and the second session modifying one record.';
+                Caption = 'Test Management';
+                Image = Setup;
 
-                trigger OnAction()
-                begin
-                    FilterSessionEventViews(LockingMgt.RunLockingScenarioModifyRangeBeforeOne());
-                end;
-            }
-            action(ModifyOneFirstReadRangeRepeatableRead)
-            {
-                ApplicationArea = All;
-                Caption = 'Read - One record first';
-                Image = UpdateDescription;
-                ToolTip = 'Run the locking test with the first session modifying one record, and the second session reading a range with RepeatableRead isolation.';
+                action(StopTestSessions)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Stop Test Sessions';
+                    Image = Stop;
+                    ToolTip = 'Stop test session that are currently running';
 
-                trigger OnAction()
-                begin
-                    FilterSessionEventViews(LockingMgt.RunLockingScenarioModifyOneBeforeReadingRangeRepeatableRead());
-                end;
-            }
-            action(ReadRangeFirstRepeatableRead)
-            {
-                ApplicationArea = All;
-                Caption = 'Read - Range first';
-                Image = UpdateDescription;
-                ToolTip = 'Run the locking test with the first session reading a range with RepeatableRead isolation, and the second session modifying one record.';
+                    trigger OnAction()
+                    begin
+                        LockingMgt.StopActiveSessions();
+                    end;
+                }
+                action(InitializeTable)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Initialize Table';
+                    Image = New;
+                    ToolTip = 'Initialize the demo data. This action deletes all records from the Locking Test table and generates a new recordset.';
 
-                trigger OnAction()
-                begin
-                    FilterSessionEventViews(LockingMgt.RunLockingScenarioReadRangeRepeatableReadBeforeModifyOne());
-                end;
-            }
-            action(ReadRangeFirstRepeatableReadModifyNone)
-            {
-                ApplicationArea = All;
-                Caption = 'Read and modify - Nothing in range';
-                Image = UpdateDescription;
-                ToolTip = 'Run the locking test with the first session reading a range with RepeatableRead isolation, and the second session attempting to modify.';
-
-                trigger OnAction()
-                begin
-                    FilterSessionEventViews(LockingMgt.RunLockingScenarioReadRangeRepeatableReadBeforeModifyNone());
-                end;
-            }
-            action(InitializeTable)
-            {
-                ApplicationArea = All;
-                Caption = 'Initialize Table';
-                Image = New;
-                ToolTip = 'Initialize the demo data. This action deletes all records from the Locking Test table and generates a new recordset.';
-
-                trigger OnAction()
-                begin
-                    LockingMgt.InitializeTestTable();
-                end;
+                    trigger OnAction()
+                    begin
+                        LockingMgt.InitializeTestTable();
+                    end;
+                }
             }
         }
         area(Navigation)
@@ -132,20 +156,25 @@ page 50701 "Locking Test"
 
     trigger OnOpenPage()
     begin
-        LockingMgt.ClearTables();
+        SetSessionViewFilters(LockingMgt.GetLastSessionIDs());
     end;
 
     local procedure FilterSessionEventViews(SessionIds: List of [Integer])
     begin
-        CurrPage.LockingSessionEvents1.Page.SetSessionIdFilter(SessionIds.Get(1));
-        CurrPage.LockingSessionEvents2.Page.SetSessionIdFilter(SessionIds.Get(2));
-        RefreshEventViews();
+        SetSessionViewFilters(SessionIds);
     end;
 
     local procedure RefreshEventViews()
     begin
         CurrPage.LockingSessionEvents1.Page.Update(false);
         CurrPage.LockingSessionEvents2.Page.Update(false);
+    end;
+
+    local procedure SetSessionViewFilters(SessionIds: List of [Integer])
+    begin
+        CurrPage.LockingSessionEvents1.Page.SetSessionIdFilter(SessionIds.Get(1));
+        CurrPage.LockingSessionEvents2.Page.SetSessionIdFilter(SessionIds.Get(2));
+        RefreshEventViews();
     end;
 
     var
