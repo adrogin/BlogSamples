@@ -194,10 +194,10 @@ codeunit 50701 "Locking Mgt."
     procedure ClearTables()
     var
         SessionParameters: Record "Session Parameters";
-        LockingSessionEvevnt: Record "Locking Session Event";
+        LockingSessionEvent: Record "Locking Session Event";
     begin
         SessionParameters.DeleteAll();
-        LockingSessionEvevnt.DeleteAll();
+        LockingSessionEvent.DeleteAll();
     end;
 
     procedure StopActiveSessions()
