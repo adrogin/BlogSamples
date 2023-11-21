@@ -207,7 +207,10 @@ codeunit 50701 "Locking Mgt."
     begin
         SessionIDs := GetLastSessionIDs();
         foreach SessionId in SessionIDs do
-            StopSession(SessionId);
+            if IsSessionActive(SessionId) then begin
+                StopSession(SessionId);
+                LogSessionEvent(SessionId, Enum::"Session Event Type"::Stopped, 'Session was stopped by the user');
+            end;
     end;
 
     local procedure VerifyTestNotRunning()

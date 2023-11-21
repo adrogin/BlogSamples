@@ -14,4 +14,8 @@ enum 50702 "Session Event Type"
     {
         Caption = 'Error';
     }
+    value(3; Stopped)
+    {
+        Caption = 'Stopped';
+    }
 }
