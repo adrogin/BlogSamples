@@ -80,7 +80,6 @@ codeunit 50711 "Shopping Cart Mgt."
     var
         ShoppingCart: Record "Shopping Cart";
     begin
-        ShoppingCart.ReadIsolation := IsolationLevel::UpdLock;
         ShoppingCart.Validate(Position, GetLastPositioninCart(CustomerNo) + 1);
         ShoppingCart.Validate("Customer No.", CustomerNo);
         ShoppingCart.Validate("Item No.", ItemNo);
