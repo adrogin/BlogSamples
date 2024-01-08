@@ -1,8 +1,12 @@
 *.app
 *.flf
+*.dll
 rad.json
 .output
 .alPackages
 .alcache
 .altemplates
 launch.json
+bin/
+lib/
+obj/
