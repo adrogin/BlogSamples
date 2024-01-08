@@ -79,14 +79,14 @@ void jTokenInitializedByReadFrom() {
 void implicitConversionNavTextToNavJsonToken() {
     // Test #5 - Code behind JsonObject.Add(Text, Text)
 
-    Func<NavJsonToken> initializeToken = () => {
+    Func<string, NavJsonToken> initializeToken = (value) => {
         NavJsonValue navJValue = NavJsonValue.Default;
-        navJValue.ALSetValue("\"Hello\\nWorld\"");
+        navJValue.ALSetValue(value);
         return navJValue;
     };
 
     NavJsonObject navJObj = NavJsonObject.Default;
-    navJObj.ALAdd(DataError.ThrowError, "key", initializeToken());
+    navJObj.ALAdd(DataError.ThrowError, "key", initializeToken("\"Hello\\nWorld\""));
 
     Console.WriteLine(navJObj);
     Console.WriteLine();
