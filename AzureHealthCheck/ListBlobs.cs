@@ -48,13 +48,30 @@ namespace ADR.BlobContainer
             return new OkObjectResult(JsonSerializer.Serialize(blobsList));
         }
 
-        private BlobContainerClient GetBlobContainerClient(string accountName, string containerName)
+        [Function("HealthCheck")]
+        public IActionResult CheckAppHealth([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
+        {
+            try {
+                GetBlobServiceClient(GetRequestParam(req, "account")).GetBlobContainers();
+            }
+            catch (Exception ex) {
+                return new ObjectResult(ex.Message) {
+                    StatusCode = StatusCodes.Status500InternalServerError
+                };
+            }
+
+            return new OkObjectResult("");
+        }
+
+        private BlobServiceClient GetBlobServiceClient(string accountName)
         {
             const string storageAccountUri = "https://{0}.blob.core.windows.net/";
+            return new BlobServiceClient(new Uri(string.Format(storageAccountUri, accountName)), new DefaultAzureCredential());
+        }
 
-            var blobServiceClient = 
-                new BlobServiceClient(new Uri(string.Format(storageAccountUri, accountName)), new DefaultAzureCredential());
-            return blobServiceClient.GetBlobContainerClient(containerName);
+        private BlobContainerClient GetBlobContainerClient(string accountName, string containerName)
+        {
+            return GetBlobServiceClient(accountName).GetBlobContainerClient(containerName);
         }
 
         private string GetRequestParam(HttpRequest req, string paramName)
