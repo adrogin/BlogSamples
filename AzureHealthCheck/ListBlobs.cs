@@ -51,8 +51,21 @@ namespace ADR.BlobContainer
         [Function("HealthCheck")]
         public IActionResult CheckAppHealth([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequest req)
         {
+            string? accountName = Environment.GetEnvironmentVariable("DefaultStorageAccount");
+
+            if (String.IsNullOrEmpty(accountName)) {
+                return new ObjectResult("Environment variable DefaultStorageAccount must be set.") {
+                    StatusCode = StatusCodes.Status500InternalServerError
+                };
+            }
+
             try {
-                GetBlobServiceClient(GetRequestParam(req, "account")).GetBlobContainers();
+                var response = GetBlobServiceClient(accountName).GetProperties().GetRawResponse();
+                if (response.IsError) {
+                    return new ObjectResult(response.ReasonPhrase) {
+                        StatusCode = response.Status
+                    };
+                }
             }
             catch (Exception ex) {
                 return new ObjectResult(ex.Message) {
