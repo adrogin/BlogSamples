@@ -142,7 +142,12 @@ codeunit 50701 "Locking Mgt."
             repeat
                 if not SessionIDs.Contains(LockingSessionEvent."Session ID") then
                     SessionIDs.Add(LockingSessionEvent."Session ID");
-            until LockingSessionEvent.Next() = 0;
+            until LockingSessionEvent.Next() = 0
+        else begin
+            // Add dummy values for sessions IDs for page filters
+            SessionIDs.Add(-1);
+            SessionIDs.Add(-1);
+        end;
 
         exit(SessionIDs);
     end;
