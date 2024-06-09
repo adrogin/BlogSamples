@@ -7,29 +7,32 @@ table 50701 "Session Parameters"
         field(1; "Session No."; Integer)
         {
             Caption = 'Session No.';
-            AutoIncrement = true;
         }
-        field(2; Action; Enum "Session Action")
+        field(2; "Action No."; Integer)
+        {
+            Caption = 'Action No.';
+        }
+        field(3; Action; Enum "Session Action")
         {
             Caption = 'Action';
         }
-        field(3; "First Record No."; Integer)
+        field(4; "First Record No."; Integer)
         {
             Caption = 'First Record No.';
         }
-        field(4; "Last Record No."; Integer)
+        field(5; "Last Record No."; Integer)
         {
             Caption = 'Last Record No.';
         }
-        field(5; "Wait Time Before Locking"; Integer)
+        field(6; "Wait Time Before Locking"; Integer)
         {
             Caption = 'Wait Time Before Locking';
         }
-        field(6; "Wait Time After Locking"; Integer)
+        field(7; "Wait Time After Locking"; Integer)
         {
             Caption = 'Wait Time After Locking';
         }
-        field(7; "Lock Type"; Enum "Session Lock Type")
+        field(8; "Lock Type"; Enum "Session Lock Type")
         {
             Caption = 'Lock Type';
         }
@@ -37,7 +40,7 @@ table 50701 "Session Parameters"
 
     keys
     {
-        key(PK; "Session No.")
+        key(PK; "Session No.", "Action No.")
         {
             Clustered = true;
         }

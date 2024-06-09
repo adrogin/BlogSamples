@@ -4,15 +4,25 @@ codeunit 50702 "Locking Session Controller"
 
     trigger OnRun()
     begin
-        LockingMgt.LogSessionEvent(SessionId(), Enum::"Session Event Type"::Start, '');
-        Commit();
-
-        if Codeunit.Run(Codeunit::"Locking Action", Rec) then
-            LockingMgt.LogSessionEvent(SessionId(), Enum::"Session Event Type"::Complete, '')
-        else
-            LockingMgt.LogSessionEvent(SessionId(), Enum::"Session Event Type"::Error, GetLastErrorText());
+        DoLockingActions(Rec);
     end;
 
+    local procedure DoLockingActions(SessionParameters: Record "Session Parameters")
     var
-        LockingMgt: Codeunit "Locking Mgt.";
+        SessionEventLogger: Codeunit "Session Event Logger";
+        LockingAction: Codeunit "Locking Action";
+    begin
+        SessionEventLogger.LogEvent(SessionId(), Enum::"Session Event Type"::Start, '');
+        SessionEventLogger.FlushLogBuffer(SessionId());
+        Commit();
+
+        LockingAction.SetLoggerInstance(SessionEventLogger);
+        if LockingAction.Run(SessionParameters) then
+            SessionEventLogger.LogEvent(SessionId(), Enum::"Session Event Type"::Complete, '')
+        else
+            SessionEventLogger.LogEvent(SessionId(), Enum::"Session Event Type"::Error, GetLastErrorText());
+
+        SessionEventLogger := LockingAction.GetLoggerInstance();
+        SessionEventLogger.FlushLogBuffer(SessionId());
+    end;
 }

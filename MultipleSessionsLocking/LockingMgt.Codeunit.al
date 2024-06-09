@@ -5,8 +5,8 @@ codeunit 50701 "Locking Mgt."
         SessionIds: List of [Integer];
     begin
         InitializeTestScenario();
-        SessionIds.Add(ModifyRecordsFromTop(1, 0, 35000));
-        SessionIds.Add(ModifyRecordsFromBottom(15000, 2000, 10000));
+        SessionIds.Add(ModifyRecordsFromTop(1, 1, 0, 35000));
+        SessionIds.Add(ModifyRecordsFromBottom(2, 15000, 2000, 10000));
 
         exit(SessionIds);
     end;
@@ -16,8 +16,8 @@ codeunit 50701 "Locking Mgt."
         SessionIds: List of [Integer];
     begin
         InitializeTestScenario();
-        SessionIds.Add(ModifyRecordsFromTop(15000, 0, 35000));
-        SessionIds.Add(ModifyRecordsFromBottom(1, 2000, 0));
+        SessionIds.Add(ModifyRecordsFromTop(1, 15000, 0, 35000));
+        SessionIds.Add(ModifyRecordsFromBottom(2, 1, 2000, 0));
 
         exit(SessionIds);
     end;
@@ -27,8 +27,8 @@ codeunit 50701 "Locking Mgt."
         SessionIds: List of [Integer];
     begin
         InitializeTestScenario();
-        SessionIds.Add(ModifyRecordsFromTop(1, 0, 35000));
-        SessionIds.Add(ReadRecordsFromBottom(15000, 2000, 0, Enum::"Session Lock Type"::"Repeatable Read"));
+        SessionIds.Add(ModifyRecordsFromTop(1, 1, 0, 35000));
+        SessionIds.Add(ReadRecordsFromBottom(2, 15000, 2000, 0, Enum::"Session Lock Type"::"Repeatable Read"));
 
         exit(SessionIds);
     end;
@@ -38,8 +38,8 @@ codeunit 50701 "Locking Mgt."
         SessionIds: List of [Integer];
     begin
         InitializeTestScenario();
-        SessionIds.Add(ReadRecordsFromTop(15000, 0, 35000, Enum::"Session Lock Type"::"Repeatable Read"));
-        SessionIds.Add(ModifyRecordsFromBottom(1, 2000, 0));
+        SessionIds.Add(ReadRecordsFromTop(1, 15000, 0, 35000, Enum::"Session Lock Type"::"Repeatable Read"));
+        SessionIds.Add(ModifyRecordsFromBottom(2, 1, 2000, 0));
 
         exit(SessionIds);
     end;
@@ -50,13 +50,42 @@ codeunit 50701 "Locking Mgt."
         SessionIds: List of [Integer];
     begin
         InitializeTestScenario();
-        SessionIds.Add(ReadRecordsFromTop(15000, 0, 35000, Enum::"Session Lock Type"::"Repeatable Read"));
+        SessionIds.Add(ReadRecordsFromTop(1, 15000, 0, 35000, Enum::"Session Lock Type"::"Repeatable Read"));
 
         // Setting the first and the last entry no. to -1, so that Modify does not find anything to update
-        SessionParameters := InitSessionParameters(Enum::"Session Action"::Modify, -1, -1, 2000, 0);
+        SessionParameters := InitSessionParameters(2, Enum::"Session Action"::Modify, -1, -1, 2000, 0);
         SessionIds.Add(StartSessionWithParameters(SessionParameters));
 
         exit(SessionIds);
+    end;
+
+    procedure RunLockingScenarioTwoRecordsDeadlock(): List of [Integer]
+    begin
+        InitializeTestScenario();
+
+        // Session 1: Acquire IU lock on record 1, wait for 5 seconds, then request IU lock on record 2
+        InitSessionParameters(1, Enum::"Session Action"::Read, 1, 1, 0, 5000, Enum::"Session Lock Type"::UpdLock);
+        InitSessionParameters(1, Enum::"Session Action"::Read, 2, 2, 0, 10000, Enum::"Session Lock Type"::UpdLock);
+
+        // Session 2: Acquire IU lock on record 2, wait for 3 seconds, then request IU lock on record 1
+        InitSessionParameters(2, Enum::"Session Action"::Read, 2, 2, 0, 3000, Enum::"Session Lock Type"::UpdLock);
+        InitSessionParameters(2, Enum::"Session Action"::Read, 1, 1, 0, 10000, Enum::"Session Lock Type"::UpdLock);
+
+        exit(StartTwoSessionsWithParameters());
+    end;
+
+    procedure RunLockingScenarioOneRecordDeadlock(): List of [Integer]
+    begin
+        InitializeTestScenario();
+
+        // Both sessions do the same scenario: Acquire S lock on record 1, wait for 2 seconds, then attempt to update this record
+        InitSessionParameters(1, Enum::"Session Action"::Read, 1, 1, 0, 2000, Enum::"Session Lock Type"::"Repeatable Read");
+        InitSessionParameters(1, Enum::"Session Action"::Modify, 1, 1, 0, 10000);
+
+        InitSessionParameters(2, Enum::"Session Action"::Read, 1, 1, 0, 2000, Enum::"Session Lock Type"::"Repeatable Read");
+        InitSessionParameters(2, Enum::"Session Action"::Modify, 1, 1, 0, 10000);
+
+        exit(StartTwoSessionsWithParameters());
     end;
 
     procedure InitializeTestTable()
@@ -84,52 +113,37 @@ codeunit 50701 "Locking Mgt."
         exit(20000);
     end;
 
-    procedure LogSessionEvent(SessionId: Integer; EventType: Enum "Session Event Type"; EventMessage: Text)
-    var
-        LockingSessionEvent: Record "Locking Session Event";
-    begin
-        LockingSessionEvent.SetRange("Session ID", SessionId);
-        if LockingSessionEvent.FindLast() then
-            LockingSessionEvent.Init();
-
-        LockingSessionEvent."Session ID" := SessionId;
-        LockingSessionEvent."Event ID" += 1;
-        LockingSessionEvent."Event Type" := EventType;
-        LockingSessionEvent.Message := CopyStr(EventMessage, 1, MaxStrLen(LockingSessionEvent.Message));
-        LockingSessionEvent.Insert();
-    end;
-
-    procedure ModifyRecordsFromTop(NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer): Integer
+    procedure ModifyRecordsFromTop(SessionNo: Integer; NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer): Integer
     var
         SessionParameters: Record "Session Parameters";
     begin
-        SessionParameters := InitSessionParameters(Enum::"Session Action"::Modify, 1, NoOfRecords, WaitTimeBefore, WaitTimeAfter);
+        SessionParameters := InitSessionParameters(SessionNo, Enum::"Session Action"::Modify, 1, NoOfRecords, WaitTimeBefore, WaitTimeAfter);
         exit(StartSessionWithParameters(SessionParameters));
     end;
 
-    procedure ModifyRecordsFromBottom(NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer): Integer
+    procedure ModifyRecordsFromBottom(SessionNo: Integer; NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer): Integer
     var
         SessionParameters: Record "Session Parameters";
     begin
         SessionParameters := InitSessionParameters(
-            Enum::"Session Action"::Modify, GetMaxEntryNo() - NoOfRecords + 1, GetMaxEntryNo(), WaitTimeBefore, WaitTimeAfter);
+            SessionNo, Enum::"Session Action"::Modify, GetMaxEntryNo() - NoOfRecords + 1, GetMaxEntryNo(), WaitTimeBefore, WaitTimeAfter);
         exit(StartSessionWithParameters(SessionParameters));
     end;
 
-    procedure ReadRecordsFromTop(NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Integer
+    procedure ReadRecordsFromTop(SessionNo: Integer; NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Integer
     var
         SessionParameters: Record "Session Parameters";
     begin
-        SessionParameters := InitSessionParameters(Enum::"Session Action"::Read, 1, NoOfRecords, WaitTimeBefore, WaitTimeAfter, LockType);
+        SessionParameters := InitSessionParameters(SessionNo, Enum::"Session Action"::Read, 1, NoOfRecords, WaitTimeBefore, WaitTimeAfter, LockType);
         exit(StartSessionWithParameters(SessionParameters));
     end;
 
-    procedure ReadRecordsFromBottom(NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Integer
+    procedure ReadRecordsFromBottom(SessionNo: Integer; NoOfRecords: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Integer
     var
         SessionParameters: Record "Session Parameters";
     begin
         SessionParameters := InitSessionParameters(
-            Enum::"Session Action"::Read, GetMaxEntryNo() - NoOfRecords + 1, GetMaxEntryNo(), WaitTimeBefore, WaitTimeAfter, LockType);
+            SessionNo, Enum::"Session Action"::Read, GetMaxEntryNo() - NoOfRecords + 1, GetMaxEntryNo(), WaitTimeBefore, WaitTimeAfter, LockType);
         exit(StartSessionWithParameters(SessionParameters));
     end;
 
@@ -167,10 +181,12 @@ codeunit 50701 "Locking Mgt."
     end;
 
     local procedure InitSessionParameters(
-        Action: Enum "Session Action"; FirstRecorsNo: Integer; LastRecordNo: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Record "Session Parameters"
+        SessionNo: Integer; Action: Enum "Session Action"; FirstRecorsNo: Integer; LastRecordNo: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer; LockType: Enum "Session Lock Type"): Record "Session Parameters"
     var
         SessionParameters: Record "Session Parameters";
     begin
+        SessionParameters."Session No." := SessionNo;
+        SessionParameters."Action No." := GetLastActionNoForSession(SessionNo) + 1;
         SessionParameters.Action := Action;
         SessionParameters."First Record No." := FirstRecorsNo;
         SessionParameters."Last Record No." := LastRecordNo;
@@ -182,10 +198,21 @@ codeunit 50701 "Locking Mgt."
         exit(SessionParameters);
     end;
 
-    local procedure InitSessionParameters(
-        Action: Enum "Session Action"; FirstRecorsNo: Integer; LastRecordNo: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer): Record "Session Parameters"
+    local procedure GetLastActionNoForSession(SessionNo: Integer): Integer
+    var
+        SessionParameters: Record "Session Parameters";
     begin
-        exit(InitSessionParameters(Action, FirstRecorsNo, LastRecordNo, WaitTimeBefore, WaitTimeAfter, Enum::"Session Lock Type"::Default));
+        SessionParameters.SetRange("Session No.", SessionNo);
+        if SessionParameters.FindLast() then
+            exit(SessionParameters."Action No.");
+
+        exit(0);
+    end;
+
+    local procedure InitSessionParameters(
+        SessionNo: Integer; Action: Enum "Session Action"; FirstRecorsNo: Integer; LastRecordNo: Integer; WaitTimeBefore: Integer; WaitTimeAfter: Integer): Record "Session Parameters"
+    begin
+        exit(InitSessionParameters(SessionNo, Action, FirstRecorsNo, LastRecordNo, WaitTimeBefore, WaitTimeAfter, Enum::"Session Lock Type"::Default));
     end;
 
     local procedure StartSessionWithParameters(SessionParameters: Record "Session Parameters"): Integer
@@ -194,6 +221,22 @@ codeunit 50701 "Locking Mgt."
     begin
         StartSession(SessionId, Codeunit::"Locking Session Controller", CompanyName, SessionParameters);
         exit(SessionId);
+    end;
+
+    local procedure StartTwoSessionsWithParameters(): List of [Integer]
+    var
+        SessionParameters: Record "Session Parameters";
+        SessionIds: List of [Integer];
+    begin
+        SessionParameters.SetRange("Session No.", 1);
+        SessionParameters.FindFirst();
+        SessionIds.Add(StartSessionWithParameters(SessionParameters));
+
+        SessionParameters.SetRange("Session No.", 2);
+        SessionParameters.FindFirst();
+        SessionIds.Add(StartSessionWithParameters(SessionParameters));
+
+        exit(SessionIds);
     end;
 
     procedure ClearTables()
@@ -207,6 +250,7 @@ codeunit 50701 "Locking Mgt."
 
     procedure StopActiveSessions()
     var
+        SessionEventLogger: Codeunit "Session Event Logger";
         SessionIDs: List of [Integer];
         SessionId: Integer;
     begin
@@ -214,7 +258,7 @@ codeunit 50701 "Locking Mgt."
         foreach SessionId in SessionIDs do
             if IsSessionActive(SessionId) then begin
                 StopSession(SessionId);
-                LogSessionEvent(SessionId, Enum::"Session Event Type"::Stopped, 'Session was stopped by the user');
+                SessionEventLogger.LogEvent(SessionId, Enum::"Session Event Type"::Stopped, 'Session was stopped by the user');
             end;
     end;
 

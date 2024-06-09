@@ -22,4 +22,8 @@ enum 50700 "Session Lock Type"
     {
         Caption = 'LockTable';
     }
+    value(5; UpdLock)
+    {
+        Caption = 'UpdLock';
+    }
 }

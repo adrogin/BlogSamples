@@ -18,4 +18,12 @@ enum 50702 "Session Event Type"
     {
         Caption = 'Stopped';
     }
+    value(4; "Database Query")
+    {
+        Caption = 'Database query';
+    }
+    value(5; Wait)
+    {
+        Caption = 'Wait';
+    }
 }

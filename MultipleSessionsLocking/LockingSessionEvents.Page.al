@@ -10,12 +10,6 @@ page 50700 "Locking Session Events"
         {
             repeater(Events)
             {
-                field(EventDateTime; Rec.SystemCreatedAt)
-                {
-                    ApplicationArea = All;
-                    Visible = false;
-                    ToolTip = 'Date and time when the event was logged.';
-                }
                 field(EventTimeControl; EventTime)
                 {
                     ApplicationArea = All;
@@ -38,7 +32,7 @@ page 50700 "Locking Session Events"
 
     trigger OnAfterGetRecord()
     begin
-        EventTime := DT2Time(Rec.SystemCreatedAt);
+        EventTime := DT2Time(Rec."Event DateTime");
     end;
 
     procedure SetSessionIdFilter(SessionId: Integer)

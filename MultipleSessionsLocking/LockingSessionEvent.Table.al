@@ -21,6 +21,10 @@ table 50702 "Locking Session Event"
             Caption = 'Message';
             DataClassification = CustomerContent;
         }
+        field(5; "Event DateTime"; DateTime)
+        {
+            Caption = 'Event DateTime';
+        }
     }
 
     keys

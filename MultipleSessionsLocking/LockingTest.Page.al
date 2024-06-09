@@ -101,6 +101,30 @@ page 50701 "Locking Test"
                         FilterSessionEventViews(LockingMgt.RunLockingScenarioReadRangeRepeatableReadBeforeModifyNone());
                     end;
                 }
+                action(DeadlockLockingTwoRecordsInReverse)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Deadlock: locking two records in reverse';
+                    Image = UpdateDescription;
+                    ToolTip = 'Session 1 locks record 1, then 2; session 2 locks in reverse order which leads to a deadlock.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioTwoRecordsDeadlock());
+                    end;
+                }
+                action(DeadlockLockingOneRecord)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Deadlock: locking and updating one record';
+                    Image = UpdateDescription;
+                    ToolTip = 'Both sessions read record 1 with Repeatable Read isolation and after 2 seconds attempt to update it.';
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunLockingScenarioOneRecordDeadlock());
+                    end;
+                }
             }
             group(TestManagement)
             {
