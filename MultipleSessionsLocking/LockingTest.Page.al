@@ -153,6 +153,7 @@ page 50701 "Locking Test"
                     trigger OnAction()
                     begin
                         LockingMgt.InitializeTestTable();
+                        Message('Ready to run test scenarios.');
                     end;
                 }
             }

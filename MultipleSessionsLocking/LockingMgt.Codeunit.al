@@ -175,7 +175,12 @@ codeunit 50701 "Locking Mgt."
     end;
 
     local procedure InitializeTestScenario()
+    var
+        LockingTest: Record "Locking Test";
     begin
+        if LockingTest.IsEmpty() then
+            Error('Test table must be initialized before running test scenarios. Run the Initialize Table action to prepare demo data.');
+
         VerifyTestNotRunning();
         ClearTables();
     end;
