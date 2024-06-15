@@ -26,4 +26,12 @@ enum 50702 "Session Event Type"
     {
         Caption = 'Wait';
     }
+    value(6; Commit)
+    {
+        Caption = 'Commit';
+    }
+    value(7; "Set Transaction Type")
+    {
+        Caption = 'Set Transaction Type';
+    }
 }

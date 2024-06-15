@@ -8,7 +8,7 @@ permissionset 50700 LockingDemo
         table "Locking Test" = X,
         table "Session Parameters" = X,
         codeunit "Locking Action" = X,
-        codeunit "Locking Mgt." = X,
+        codeunit "Locking Scenarios" = X,
         codeunit "Locking Session Controller" = X,
         page "Locking Session Events" = X,
         page "Locking Test" = X;

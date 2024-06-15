@@ -11,11 +11,13 @@ codeunit 50700 "Locking Action"
     var
         SessionParameters: Record "Session Parameters";
         LockingTest: Record "Locking Test";
-        LockingMgt: Codeunit "Locking Mgt.";
+        LockingScenarios: Codeunit "Locking Scenarios";
     begin
         SessionParameters.SetRange("Session No.", SessionParametersSet."Session No.");
         SessionParameters.FindSet();
         repeat
+            SetTransactionType(SessionParameters."Transaction Type");
+
             SessionEventLogger.LogWait(SessionId(), SessionParameters."Wait Time Before Locking");
             Sleep(SessionParameters."Wait Time Before Locking");
             SessionEventLogger.LogAction(SessionId(), SessionParameters);
@@ -43,7 +45,7 @@ codeunit 50700 "Locking Action"
                         LockingTest.Next(SessionParameters."Last Record No.");
                     end;
                 SessionParameters.Action::Insert:
-                    LockingMgt.InsertOneRecord(LockingMgt.GetMaxEntryNo() + 1);
+                    LockingScenarios.InsertOneRecord(LockingScenarios.GetMaxEntryNo() + 1);
                 SessionParameters.Action::Modify:
                     LockingTest.ModifyAll(Description, System.CreateGuid());
                 SessionParameters.Action::Delete:
@@ -52,6 +54,9 @@ codeunit 50700 "Locking Action"
 
             SessionEventLogger.LogWait(SessionId(), SessionParameters."Wait Time After Locking");
             Sleep(SessionParameters."Wait Time After Locking");
+
+            if SessionParameters."Commit After Action" then
+                CommitTransaction();
         until SessionParameters.Next() = 0;
     end;
 
@@ -63,6 +68,33 @@ codeunit 50700 "Locking Action"
     procedure GetLoggerInstance(): Codeunit "Session Event Logger"
     begin
         exit(SessionEventLogger);
+    end;
+
+    local procedure CommitTransaction()
+    begin
+        SessionEventLogger.LogCommit(SessionId());
+        Commit();
+    end;
+
+    local procedure SetTransactionType(NewTransactionType: Enum "Session Transaction Type")
+    begin
+        if NewTransactionType = Enum::"Session Transaction Type"::Default then
+            exit;
+
+        case NewTransactionType of
+            NewTransactionType::UpdateNoLocks:
+                CurrentTransactionType := TransactionType::UpdateNoLocks;
+            NewTransactionType::Update:
+                CurrentTransactionType := TransactionType::Update;
+            NewTransactionType::Browse:
+                CurrentTransactionType := TransactionType::Browse;
+            NewTransactionType::Report:
+                CurrentTransactionType := TransactionType::Report;
+            NewTransactionType::Snapshot:
+                CurrentTransactionType := TransactionType::Snapshot;
+        end;
+
+        SessionEventLogger.LogTransactionTypeChange(SessionId(), NewTransactionType);
     end;
 
     var

@@ -1,5 +1,6 @@
-codeunit 50701 "Locking Mgt."
+codeunit 50701 "Locking Scenarios"
 {
+    #region Preset scenarios
     procedure RunLockingScenarioModifyOneBeforeRange(): List of [Integer]
     var
         SessionIds: List of [Integer];
@@ -87,6 +88,8 @@ codeunit 50701 "Locking Mgt."
 
         exit(StartTwoSessionsWithParameters());
     end;
+
+    #endregion
 
     procedure InitializeTestTable()
     var

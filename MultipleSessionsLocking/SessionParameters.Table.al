@@ -36,6 +36,14 @@ table 50701 "Session Parameters"
         {
             Caption = 'Lock Type';
         }
+        field(9; "Transaction Type"; Enum "Session Transaction Type")
+        {
+            Caption = 'Transaction Type';
+        }
+        field(10; "Commit After Action"; Boolean)
+        {
+            Caption = 'Commit After Action';
+        }
     }
 
     keys

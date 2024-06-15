@@ -5,9 +5,23 @@ codeunit 50703 "Session Event Logger"
         Log(SessionId, Enum::"Session Event Type"::"Database Query", FormatEventMessage(SessionParameters));
     end;
 
-    procedure LogEvent(SessionId: Integer; EventType: Enum "Session Event Type"; EventMessage: Text)
+    procedure LogCommit(SessionId: Integer)
+    var
+        CommitEventLbl: Label 'Commit';
     begin
-        Log(SessionId, EventType, EventMessage)
+        Log(SessionId, Enum::"Session Event Type"::Commit, CommitEventLbl);
+    end;
+
+    procedure LogEvent(SessionId: Integer; EventType: Enum "Session Event Type"; LogMessage: Text)
+    begin
+        Log(SessionId, EventType, LogMessage);
+    end;
+
+    procedure LogTransactionTypeChange(SessionId: Integer; TransactionType: Enum "Session Transaction Type")
+    var
+        ChangeTransactionTypeLbl: Label 'Setting the trnsaction type to %1', Comment = '%1: New trnsaction type to be set.';
+    begin
+        Log(SessionId, Enum::"Session Event Type"::"Set Transaction Type", StrSubstNo(ChangeTransactionTypeLbl, TransactionType));
     end;
 
     procedure LogWait(SessionId: Integer; WaitTime: Integer)

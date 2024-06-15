@@ -203,5 +203,5 @@ page 50701 "Locking Test"
     end;
 
     var
-        LockingMgt: Codeunit "Locking Mgt.";
+        LockingMgt: Codeunit "Locking Scenarios";
 }
