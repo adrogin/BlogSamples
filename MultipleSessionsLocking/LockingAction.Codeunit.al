@@ -45,7 +45,7 @@ codeunit 50700 "Locking Action"
                         LockingTest.Next(SessionParameters."Last Record No.");
                     end;
                 SessionParameters.Action::Insert:
-                    LockingScenarios.InsertOneRecord(LockingScenarios.GetMaxEntryNo() + 1);
+                    LockingScenarios.InsertRecords(SessionParameters."First Record No.", SessionParameters."Last Record No.");
                 SessionParameters.Action::Modify:
                     LockingTest.ModifyAll(Description, System.CreateGuid());
                 SessionParameters.Action::Delete:

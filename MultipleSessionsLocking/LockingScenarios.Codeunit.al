@@ -1,5 +1,23 @@
 codeunit 50701 "Locking Scenarios"
 {
+    procedure RunScenario(): List of [Integer]
+    var
+        SessionParameters: Record "Session Parameters";
+        SessionIds: List of [Integer];
+    begin
+        InitializeSession(false);
+
+        SessionParameters.SetRange("Session No.", 1);
+        SessionParameters.FindFirst();
+        SessionIds.Add(StartSessionWithParameters(SessionParameters));
+
+        SessionParameters.SetRange("Session No.", 2);
+        SessionParameters.FindFirst();
+        SessionIds.Add(StartSessionWithParameters(SessionParameters));
+
+        exit(SessionIds);
+    end;
+
     #region Preset scenarios
     procedure RunLockingScenarioModifyOneBeforeRange(): List of [Integer]
     var
@@ -111,6 +129,14 @@ codeunit 50701 "Locking Scenarios"
         LockingTest.Insert();
     end;
 
+    procedure InsertRecords(FirstEntryNo: Integer; LastEntryNo: Integer)
+    var
+        I: Integer;
+    begin
+        for I := FirstEntryNo to LastEntryNo do
+            InsertOneRecord(I);
+    end;
+
     procedure GetMaxEntryNo(): Integer
     begin
         exit(20000);
@@ -177,7 +203,7 @@ codeunit 50701 "Locking Scenarios"
         exit(not ActiveSession.IsEmpty());
     end;
 
-    local procedure InitializeTestScenario()
+    local procedure InitializeSession(ClearParams: Boolean)
     var
         LockingTest: Record "Locking Test";
     begin
@@ -185,7 +211,12 @@ codeunit 50701 "Locking Scenarios"
             Error('Test table must be initialized before running test scenarios. Run the Initialize Table action to prepare demo data.');
 
         VerifyTestNotRunning();
-        ClearTables();
+        ClearTables(ClearParams);
+    end;
+
+    procedure InitializeTestScenario()
+    begin
+        InitializeSession(true);
     end;
 
     local procedure InitSessionParameters(
@@ -247,12 +278,13 @@ codeunit 50701 "Locking Scenarios"
         exit(SessionIds);
     end;
 
-    procedure ClearTables()
+    procedure ClearTables(ClearParams: Boolean)
     var
         SessionParameters: Record "Session Parameters";
         LockingSessionEvent: Record "Locking Session Event";
     begin
-        SessionParameters.DeleteAll();
+        if ClearParams then
+            SessionParameters.DeleteAll();
         LockingSessionEvent.DeleteAll();
     end;
 

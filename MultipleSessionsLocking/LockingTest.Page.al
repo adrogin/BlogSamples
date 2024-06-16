@@ -8,24 +8,58 @@ page 50701 "Locking Test"
     {
         area(Content)
         {
-            grid(Sessions)
+            group(Configuration)
             {
-                group(Session1)
-                {
-                    Caption = 'Session 1';
+                Caption = 'Configuration';
 
-                    part(LockingSessionEvents1; "Locking Session Events")
+                grid(SessionsConfig)
+                {
+                    group(Config1)
                     {
-                        ApplicationArea = All;
+                        Caption = 'Session 1 Setup';
+
+                        part(SessionParameters1; "Session Parameters")
+                        {
+                            ApplicationArea = All;
+                            SubPageView = where("Session No." = const(1));
+                        }
+                    }
+                    group(Config2)
+                    {
+                        Caption = 'Session 2 Setup';
+
+                        part(SessionParameters2; "Session Parameters")
+                        {
+                            ApplicationArea = All;
+                            SubPageView = where("Session No." = const(2));
+                        }
                     }
                 }
-                group(Session2)
-                {
-                    Caption = 'Session 2';
+            }
 
-                    part(LockingSessionEvents2; "Locking Session Events")
+            group(Activity)
+            {
+                Caption = 'Activity';
+
+                grid(Sessions)
+                {
+                    group(Session1)
                     {
-                        ApplicationArea = All;
+                        Caption = 'Session 1';
+
+                        part(LockingSessionEvents1; "Locking Session Events")
+                        {
+                            ApplicationArea = All;
+                        }
+                    }
+                    group(Session2)
+                    {
+                        Caption = 'Session 2';
+
+                        part(LockingSessionEvents2; "Locking Session Events")
+                        {
+                            ApplicationArea = All;
+                        }
                     }
                 }
             }
@@ -36,6 +70,19 @@ page 50701 "Locking Test"
     {
         area(Processing)
         {
+            group(TestExecution)
+            {
+                action(Run)
+                {
+                    ApplicationArea = All;
+                    Image = Continue;
+
+                    trigger OnAction()
+                    begin
+                        FilterSessionEventViews(LockingMgt.RunScenario());
+                    end;
+                }
+            }
             group(TestScenarios)
             {
                 Caption = 'Test Scenarios';
@@ -175,6 +222,7 @@ page 50701 "Locking Test"
         }
         area(Promoted)
         {
+            actionref(RunPromoted; Run) { }
             actionref(PromotedRefresh; Refresh) { }
         }
     }

@@ -15,6 +15,12 @@ table 50701 "Session Parameters"
         field(3; Action; Enum "Session Action")
         {
             Caption = 'Action';
+
+            trigger OnValidate()
+            begin
+                if Action <> Action::Read then
+                    Validate("Lock Type", "Lock Type"::Default);
+            end;
         }
         field(4; "First Record No."; Integer)
         {
@@ -35,6 +41,14 @@ table 50701 "Session Parameters"
         field(8; "Lock Type"; Enum "Session Lock Type")
         {
             Caption = 'Lock Type';
+
+            trigger OnValidate()
+            var
+                LockTypeNotAppliableErr: Label 'Lock Type property is only applicable is the action is Read.';
+            begin
+                if ("Lock Type" <> "Lock Type"::Default) and (Action <> Action::Read) then
+                    Error(LockTypeNotAppliableErr);
+            end;
         }
         field(9; "Transaction Type"; Enum "Session Transaction Type")
         {
