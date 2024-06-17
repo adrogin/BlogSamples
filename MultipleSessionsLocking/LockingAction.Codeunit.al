@@ -3,17 +3,21 @@ codeunit 50700 "Locking Action"
     TableNo = "Session Parameters";
 
     trigger OnRun()
+    var
+        TempSessionParameters: Record "Session Parameters" temporary;
     begin
-        DoLockingAction(Rec);
+        // Reading session parameters into a temporary table to start a clean transaction and avoid polluting the test session with queries against setup tables
+        // SetTransaction Type does not work after any database query
+        ReadParametersToTempTable(TempSessionParameters, Rec);
+        Commit();
+        DoLockingAction(TempSessionParameters);
     end;
 
-    local procedure DoLockingAction(SessionParametersSet: Record "Session Parameters")
+    local procedure DoLockingAction(var SessionParameters: Record "Session Parameters")
     var
-        SessionParameters: Record "Session Parameters";
         LockingTest: Record "Locking Test";
         LockingScenarios: Codeunit "Locking Scenarios";
     begin
-        SessionParameters.SetRange("Session No.", SessionParametersSet."Session No.");
         SessionParameters.FindSet();
         repeat
             SetTransactionType(SessionParameters."Transaction Type");
@@ -58,6 +62,19 @@ codeunit 50700 "Locking Action"
             if SessionParameters."Commit After Action" then
                 CommitTransaction();
         until SessionParameters.Next() = 0;
+    end;
+
+    local procedure ReadParametersToTempTable(var TempSessionParameters: Record "Session Parameters" temporary; var SrcSessionParameters: Record "Session Parameters")
+    begin
+        TempSessionParameters.Reset();
+        TempSessionParameters.DeleteAll();
+
+        SrcSessionParameters.SetRange("Session No.", SrcSessionParameters."Session No.");
+        SrcSessionParameters.FindSet();
+        repeat
+            TempSessionParameters := SrcSessionParameters;
+            TempSessionParameters.Insert();
+        until SrcSessionParameters.Next() = 0;
     end;
 
     procedure SetLoggerInstance(SessionEventLoggerInstance: Codeunit "Session Event Logger")

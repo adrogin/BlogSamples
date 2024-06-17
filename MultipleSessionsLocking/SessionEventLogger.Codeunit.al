@@ -19,7 +19,7 @@ codeunit 50703 "Session Event Logger"
 
     procedure LogTransactionTypeChange(SessionId: Integer; TransactionType: Enum "Session Transaction Type")
     var
-        ChangeTransactionTypeLbl: Label 'Setting the trnsaction type to %1', Comment = '%1: New trnsaction type to be set.';
+        ChangeTransactionTypeLbl: Label 'Setting the transaction type to %1', Comment = '%1: New trnsaction type to be set.';
     begin
         Log(SessionId, Enum::"Session Event Type"::"Set Transaction Type", StrSubstNo(ChangeTransactionTypeLbl, TransactionType));
     end;
