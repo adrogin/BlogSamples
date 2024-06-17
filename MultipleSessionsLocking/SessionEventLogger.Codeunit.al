@@ -83,7 +83,8 @@ codeunit 50703 "Session Event Logger"
     var
         ReadOneMessageLbl: Label 'Reading record %1 with %2 method.', Locked = true;
         ReadMultipleMessageLbl: Label 'Reading records from %1 to %2 with %3 method.', Locked = true;
-        InsertMessageLbl: Label 'Inserting record %1.', Locked = true;
+        InsertOneMessageLbl: Label 'Inserting record %1.', Locked = true;
+        InsertMultipleMessageLbl: Label 'Inserting records from %1 to %2.', Locked = true;
         DeleteOneMessageLbl: Label 'Deleting record %1.', Locked = true;
         DeleteMultipleMessageLbl: Label 'Deleting records from %1 to %2.', Locked = true;
         UpdateOneMessageLbl: Label 'Modifying record %1.', Locked = true;
@@ -97,7 +98,11 @@ codeunit 50703 "Session Event Logger"
                     exit(StrSubstNo(ReadMultipleMessageLbl, SessionParameters."First Record No.", SessionParameters."Last Record No.", SessionParameters."Lock Type"));
                 end;
             "Session Action"::"Insert":
-                exit(StrSubstNo(InsertMessageLbl, SessionParameters."First Record No."));
+                begin
+                    if SessionParameters."First Record No." = SessionParameters."Last Record No." then
+                        exit(StrSubstNo(InsertOneMessageLbl, SessionParameters."First Record No."));
+                    exit(StrSubstNo(InsertMultipleMessageLbl, SessionParameters."First Record No.", SessionParameters."Last Record No."));
+                end;
             "Session Action"::"Delete":
                 begin
                     if SessionParameters."First Record No." = SessionParameters."Last Record No." then

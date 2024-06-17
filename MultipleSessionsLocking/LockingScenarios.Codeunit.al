@@ -1,21 +1,9 @@
 codeunit 50701 "Locking Scenarios"
 {
     procedure RunScenario(): List of [Integer]
-    var
-        SessionParameters: Record "Session Parameters";
-        SessionIds: List of [Integer];
     begin
         InitializeSession(false);
-
-        SessionParameters.SetRange("Session No.", 1);
-        SessionParameters.FindFirst();
-        SessionIds.Add(StartSessionWithParameters(SessionParameters));
-
-        SessionParameters.SetRange("Session No.", 2);
-        SessionParameters.FindFirst();
-        SessionIds.Add(StartSessionWithParameters(SessionParameters));
-
-        exit(SessionIds);
+        exit(StartTwoSessionsWithParameters())
     end;
 
     #region Preset scenarios
